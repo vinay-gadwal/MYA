@@ -1,0 +1,30 @@
+{
+  "name": "check",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@remobile/react-native-audio": "^1.0.0",
+    "moment": "^2.22.2",
+    "react": "16.4.1",
+    "react-native": "^0.56.0",
+    "react-native-airplay-btn": "^1.0.5-beta-1.0",
+    "react-native-audio-streamer": "0.0.9",
+    "react-native-audio-streaming": "^2.3.2",
+    "react-native-music-control": "^0.7.3",
+    "react-native-sound": "^0.10.9",
+    "react-native-track-player": "^0.2.5"
+  },
+  "devDependencies": {
+    "babel-jest": "23.4.2",
+    "babel-preset-react-native": "^5",
+    "jest": "23.5.0",
+    "react-test-renderer": "16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
