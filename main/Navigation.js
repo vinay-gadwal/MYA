@@ -5,7 +5,8 @@ import SignIn from './Login'
 import SignUp from './Register'
 import ForgetPassword from './ForgetPassword';
 import TabNavigator from './App'
-
+import Scroll from './Click_On_Album'
+import Album from './Album'
 class LoginActivity extends Component {
   
   static navigationOptions =
@@ -48,7 +49,9 @@ export default MainProject = StackNavigator(
    First: { screen: TabNavigator },
    Second: { screen: ForgetPassword },
    Third: { screen: SignIn },
-   Fourth: { screen: SignUp },             
+   Fourth: { screen: SignUp }, 
+   Fifth: { screen : Scroll},
+   Sixth:{screen: Album}         
 },{
     initialRouteName: 'First',
     navigationOptions: {
