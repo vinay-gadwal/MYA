@@ -7,7 +7,7 @@ import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 console.disableYellowBox = true;
 const pause = require('./icon/checkmark.png');
 const play = require('./icon/greyplay.png');
-
+import Music from './musicPlay'
 class ProgressBar extends ProgressComponent {
   render() {
     return (
@@ -96,6 +96,33 @@ function ControlButton({ title, onPress }) {
         await TrackPlayer.skipToPrevious()
       } catch (_) {}
     }
+    // moreOption(){
+    //   return (
+    //     <View style={{ flex: 1 }}>
+    //       <OptionsButton
+    //         items={[
+    //           { title: 'Title 1', id: 0, onPress: () => null },
+    //           { title: 'Title 2', id: 1, onPress: () => null },
+    //           { title: 'Title 3', id: 2, onPress: () => null },
+    //           { title: 'Title 4', id: 3, onPress: () => null },
+    //           { title: 'Title 5', id: 4, onPress: () => null },
+    //           { title: 'Title 6', id: '5', onPress: () => null }
+    //         ]}
+    //         title="Menu"
+    //         openTitle="Close"
+    //         onPress={(i, z) => console.log(i, z)}
+    //         optionsStyle={{ borderRadius: 8 }}
+    //         buttonTextStyle={{ color: 'white' }}
+    //         containerStyle={{ bottom: 15 }}
+    //       />
+    //     </View>
+    //   )
+    // }
+    FunctionToOpenSecondActivity = () =>
+    {
+       this.props.navigation.navigate('Third');
+       
+    }
   render() {
       return (
           <View>
@@ -104,32 +131,100 @@ function ControlButton({ title, onPress }) {
               <Text style={{marginTop:80,marginBottom:20,marginLeft:20,marginRight:20}}>BODY WARMUP</Text>
             </View>
            
-              <ScrollView>
-            <View style={{flexDirection:'row',Height:800,backgroundColor:'white',marginBottom:1}}>
-              <Image style={{height:80,width:80,marginTop:20,marginBottom:10,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-            <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
-                <Text>Still The One</Text>
-                <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+              
+            <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1,height:300}}>
+            <ScrollView>
+            <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
+                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                      <Text>Still The One</Text>
+                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+                    </View>
+                      <TouchableOpacity >
+                      <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                      </TouchableOpacity>
+              </View>
+             <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
+                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                      <Text>Still The One</Text>
+                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+                    </View>
+                      {/* <TouchableOpacity >
+                      <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                      </TouchableOpacity> */}
+                      <TouchableOpacity>
+                      <Image style={{ height:28,width:27,marginTop:30,marginLeft:0,marginRight:400}} source={require('./icon/more.png')}/>              
+                      </TouchableOpacity>
+              </View>
+              <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
+                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                      <Text>Still The One</Text>
+                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+                    </View>
+                      {/* <TouchableOpacity >
+                      <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                      </TouchableOpacity> */}
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                      </TouchableOpacity>
+              </View>
+              <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
+                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                      <Text>Still The One</Text>
+                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+                    </View>
+                      {/* <TouchableOpacity >
+                      <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                      </TouchableOpacity> */}
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                      </TouchableOpacity>
+              </View>
+              <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
+                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                      <Text>Still The One</Text>
+                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+                    </View>
+                      {/* <TouchableOpacity >
+                      <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                      </TouchableOpacity> */}
+                      <TouchableOpacity>
+                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                      </TouchableOpacity>
+              </View>
+              </ScrollView>
             </View>
-              {/* <TouchableOpacity > */}
-              <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
-              {/* </TouchableOpacity> */}
-              {/* <TouchableOpacity> */}
-              <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
-              {/* </TouchableOpacity> */}
-              {/* <TouchableOpacity> */}
-              <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-              {/* </TouchableOpacity> */}
-            </View>
-            </ScrollView>
+           
             
-            <View style={{flexDirection:'row',Height:10,backgroundColor:'white',marginBottom:1}}>
+            <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:0}}>
                <Slider 
                      style={{thumbTintSize :40}}
                     minimumValue          = {0}
                     maximumValue          = {this.state.duration}
                     thumbTintColor        = "rgb(164,0,0)" 
-                    minimumTrackTintColor = "rgb(164,0,0)"
+                    minimumTrackTintColor = "black"
                     maximumTrackTintColor = "#F6F1F0"
                     step                  = {1}
                     onValueChange ={ val=>{
@@ -148,7 +243,7 @@ function ControlButton({ title, onPress }) {
                   />        
             <View style={styles.controls}> 
               
-            <TouchableOpacity >        
+            <TouchableOpacity onPress={this.FunctionToOpenSecondActivity}>        
                 <Image 
                 //style={styles.ButtonStyle1}
                 style={{marginBottom:10,marginTop:25,height:28,
@@ -191,12 +286,20 @@ const styles = StyleSheet.create({
     //marginLeft:30,
    // marginRight:20
   },
+  ButtonStyle2:{
+    height:28,
+    width:27,
+    marginTop:30,
+   // marginBottom:0,
+    marginLeft:20,
+    //marginRight:600
+  }
 });
 
 export default createBottomTabNavigator(
   {
     StartClass:{
-        screen:Scroll,
+        screen:SignIn,
         // navigationOptions: {
         //     tabBarIcon:()=>  
         //     <Icon
@@ -206,7 +309,7 @@ export default createBottomTabNavigator(
         // },
     },
     StartWorkout:{
-        screen:SignIn,
+        screen:Scroll,
         // navigationOptions: {
         //     tabBarIcon:()=>   <Icon
         //     name='qrcode'
@@ -217,12 +320,14 @@ export default createBottomTabNavigator(
 },
 {
     tabBarOptions: {
-      marginBottom:-10,
+    
         activeTintColor: 'white',
         inactiveTintColor :'white',
         activeBackgroundColor: "rgb(164,0,0)",
         labelStyle: {
           fontSize: 18,
+         // marginTop:10,
+          padding: 10,
         },
         style: {
           // borderTopWidth: 0,
@@ -231,7 +336,8 @@ export default createBottomTabNavigator(
           navBarTextFontSize: 34,
           forceTitlesDisplay: true,
           tabFontFamily: "Avenir-Medium"
-        }
+        },
+     
       }
 }
 

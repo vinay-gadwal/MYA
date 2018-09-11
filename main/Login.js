@@ -170,9 +170,10 @@ export default class Login extends Component {
      this.props.navigation.navigate('Second');
      
   }
-  FunctionToOpenThirdActivity = () =>
+
+  FunctionToOpenSixthActivity = () =>
   {
-     this.props.navigation.navigate('Fourth');
+     this.props.navigation.navigate('Fifth');
      
   }
   async onLoginPress() {
@@ -220,9 +221,9 @@ export default class Login extends Component {
               >
         <Text style={{color:"white",fontSize:12,marginBottom:5,marginTop:0}}>                                     FORGOT PASSWORD?</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
               style={styles.button}
-              onPress={this.onLoginPress.bind(this)}
+              //onPress={this.onLoginPress.bind(this)}
             >
         <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>

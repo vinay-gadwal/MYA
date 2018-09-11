@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
-import {Platform,StyleSheet,Text,TouchableOpacity,View,Image,Button,Aler,StatusBar} from 'react-native';
+import React, { Component } from "react";
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  TouchableOpacity,Image,ImageBackground,StatusBar
+} from "react-native";
 import Slider from 'react-native-slider'
+
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 console.disableYellowBox = true;
-const pause = require('./img/play-512.png');
-const play = require('./img/pause-512.png');
+const pause = require('./icon/play.png');
+const play = require('./icon/pause.png');
 //import Header from './Header'
 function ControlButton({ title, onPress }) {
   return (
@@ -14,8 +23,7 @@ function ControlButton({ title, onPress }) {
   );
 }
 
-export default class App extends TrackPlayer.ProgressComponent {
-  
+export default class Music extends TrackPlayer.ProgressComponent {
   constructor(props){
     super(props);
     this.state = { middlebutton:true,duration: 0,value:0.2, paused: true,
@@ -36,7 +44,7 @@ export default class App extends TrackPlayer.ProgressComponent {
                   },
                   {
                     id: 'unique track id',
-                    url: require('./advertising.mp3'),
+                    url: require('./SampleAudio_0.4mb.mp3'),
                     // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                     title: 'title',
                     artist:'art',
@@ -112,7 +120,7 @@ export default class App extends TrackPlayer.ProgressComponent {
     var imgSource = this.state.middlebutton? play : pause;
     return (
       <View>
-      <Image  style={{width: 50, height: 50,marginLeft:50,marginRight:50}}
+      <Image  style={{width: 100, height: 100,marginTop:17}}
         source={ imgSource }
       />
       </View>
@@ -135,34 +143,46 @@ export default class App extends TrackPlayer.ProgressComponent {
       this.setState({ duration: this.state.duration + 15 });
     }
   }
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: "rgb(164,0,0)",
+      headerBackTitle:"Still The One",
+    } ,
+    headerBackTitle:"Still The One",
+    headerBackTitleStyle:{
+                color:'white'
+    },
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+      marginBottom:0,
+      padding:0,
+      
+  };
+
+  
   render() {
-          TrackPlayer.getDuration().then(duration=>this.setState({duration}))
+    TrackPlayer.getDuration().then(duration=>this.setState({duration}))
 
     return (
-    <View style={styles.container}>
+      <ImageBackground source={require('./image/musicplayerbg.png')} style={styles.backgroundImage} >
+       <View style={styles.container}>
             <StatusBar hidden={true} />            
             {/* <Header message="MYA"/> */}
             <Image
-                style={{width: 200, height: 300,marginLeft:90,marginRight:20,marginBottom:30}}
+                style={{width: 250, height: 250,marginLeft:60,marginRight:100,marginBottom:30}}
                 source={{uri: 'https://awllpaper.com/wp-content/uploads/2018/03/music-wallpaper-mobile-best-mobile-music-wallpapers-7.jpg'}}
             />
-            <Text  style={{color:'black',alignItems:'center',marginLeft:150,marginRight:20,marginBottom:30}}>Track-Player</Text>
+            {/* <Text  style={{color:'black',alignItems:'center',marginLeft:150,marginRight:20,marginBottom:30}}>Track-Player</Text> */}
         
-        <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row'}}>
-            <Text style={{color: 'black',backgroundColor:'transparent',width:40,marginRight:10,fontSize:12,justifyContent:'flex-end'}}>
-              { this.state.isSeeking ? this.formatTime(this.seek) :this.counting(this.state.position) }
-            </Text>
-            <Text style={{color: 'black',backgroundColor:'transparent',width:40,fontSize:12,marginLeft:10}}>
-              { this.state.isSeeking ? this.formatTime(this.seek) : this.formatTime(this.state.duration) }
-            </Text >
-        </View>
             
             <Slider 
-              //  style={styles.slider}
+               style={{marginLeft:35,marginRight:35}}
+              
               minimumValue          = {0}
               maximumValue          = {this.state.duration}
-              //thumbTintColor        = "black"
-              minimumTrackTintColor = "black"
+              thumbTintColor        = "white"
+              minimumTrackTintColor = "red"
               maximumTrackTintColor = "#F6F1F0"
               step                  = {1}
               onValueChange ={ val=>{
@@ -179,18 +199,44 @@ export default class App extends TrackPlayer.ProgressComponent {
               }}
               value={this.state.isSeeking ? this.seek : this.state.position}
         />
-        
+           <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row'}}>
+            <Text style={{color: 'white',backgroundColor:'transparent',width:40,marginRight:10,marginLeft:35,fontSize:14,justifyContent:'flex-end'}}>
+              { this.state.isSeeking ? this.formatTime(this.seek) :this.counting(this.state.position) }
+            </Text>
+            <Text style={{color: 'white',backgroundColor:'transparent',width:40,marginRight:25,marginLeft:10,fontSize:14,marginLeft:10}}>
+              { this.state.isSeeking ? this.formatTime(this.seek) : this.formatTime(this.state.duration) }
+            </Text >
+        </View>
+        <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row',marginTop:30}}>
+        <Button
+  title="LOADING BUTTON"
+  loading
+  style={{
+    width: 300,
+    height: 45,
+    borderColor: "white",
+    borderWidth: 2,
+    borderRadius: 5,
+    color: 'red',
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: 'green'
+  }}
+  containerStyle={{ marginTop: 20 }}
+/>
+              <Button title="Auto Pause" />
+          </View>
         <View style={styles.controls}> 
             
             <TouchableOpacity>
-            <Image style={{width: 30, height: 30,marginLeft:20}}
-                source={require('./img/15secback.png')}
+            <Image style={{width: 50, height: 50,marginLeft:23,marginTop:40}}
+                source={require('./icon/previous15.png')}
             />
             </TouchableOpacity> 
             
             <TouchableOpacity >        
-            <Image style={{width: 30, height: 30,marginLeft:30}}
-                source={require('./img/backward.png')}
+            <Image style={{width: 65, height: 65,marginTop:32}}
+                source={require('./icon/previous.png')}
             />
             </TouchableOpacity>
             
@@ -202,48 +248,52 @@ export default class App extends TrackPlayer.ProgressComponent {
             {/* <ControlButton title={this.state.middlebutton} onPress={() => this.togglePlayback()} /> */}
             
             <TouchableOpacity>        
-            <Image style={{width: 30, height: 30,marginRight:30}}
-                source={require('./img/forward.png')}
+            <Image style={{width: 65, height: 65,marginTop:32}}
+                source={require('./icon/next.png')}
             />
             </TouchableOpacity > 
             <TouchableOpacity >
-            <Image style={{width: 30, height: 25,marginRight:10}}
-                source={require('./img/15secforw.png')}
+            <Image style={{width: 50, height: 50,marginTop:40}}
+                source={require('./icon/next15.png')}
             />
               </TouchableOpacity> 
         </View>
 
     </View>
-        
-      );
-    }
+        </ImageBackground>
+    );
   }
+}
 
-  const styles = StyleSheet.create({
-    container: {
+
+const styles = StyleSheet.create({
+  backgroundImage: {
       flex: 1,
-      justifyContent: 'center',
-    //backgroundColor:'black'
-    },
-    welcome: {
-      fontSize: 20,textAlign: 'center',margin: 10,
-    },
-    instructions: {
-      textAlign: 'center',color: 'black',marginBottom: 5,
-    },
-    progress: {
-      height: 1,width: '100%',marginTop: 10,flexDirection: 'row',
-    },
-    controls: {
-      marginVertical: 20,flexDirection: 'row',
-    },
-    controlButtonContainer: {
-      flex: 1,
-    },
-    controlButtonText: {
-      fontSize: 18,textAlign: 'center',
-    },
-    slider:{
-    backgroundColor:"black",alignItems: 'stretch',justifyContent: 'center',
-    }
-  });
+      },
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+      //backgroundColor:'black'
+      },
+      welcome: {
+        fontSize: 20,textAlign: 'center',margin: 10,
+      },
+      instructions: {
+        textAlign: 'center',color: 'black',marginBottom: 5,
+      },
+      progress: {
+        height: 1,width: '100%',marginTop: 10,flexDirection: 'row',
+      },
+      controls: {
+        marginVertical: 20,flexDirection: 'row',marginTop:20
+      },
+      controlButtonContainer: {
+        flex: 1,
+      },
+      controlButtonText: {
+        fontSize: 18,textAlign: 'center',
+      },
+      slider:{
+      backgroundColor:"black",alignItems: 'stretch',justifyContent: 'center',
+      }
+})

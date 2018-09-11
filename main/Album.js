@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text ,Button,TouchableOpacity,Image,Icon} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import Scroll from './Click_On_Album'
+import Music from './musicPlay';
 
 class DetailsScreen extends React.Component {
     constructor(){
@@ -24,6 +25,7 @@ class DetailsScreen extends React.Component {
     {
        First: { screen: DetailsScreen },
        Second: { screen: Scroll },
+       Third : {screen : Music}
           
     },{
         initialRouteName: 'First',
@@ -40,13 +42,13 @@ class DetailsScreen extends React.Component {
                                     marginLeft:15,
                                     marginRight:10}} source={require('./icon/back.png')}
                              />,
-         headerRight: (
-                                <Button style={{color:'black',marginBottom:5}}
-                                  onPress={() => alert('This is a button!')}
-                                  title="Info"
+        //  headerRight: (
+        //                         <Button style={{color:'black',marginBottom:5}}
+        //                           onPress={() => alert('This is a button!')}
+        //                           title="Info"
                                   
-                                />
-                              ),
+        //                         />
+        //                       ),
           headerBackTitle:'Bodypump 106',
         headerBackTitleStyle:{
                     color:'black'
