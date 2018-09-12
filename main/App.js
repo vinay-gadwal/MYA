@@ -45,6 +45,7 @@ const routes = {
 
 const routeConfig = {
   tabBarPosition: 'top',
+  backgroundColor:'black',
   tabBarOptions: {
     //showLabel: true,
     activeTintColor: "red",

@@ -143,7 +143,7 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
-  AsyncStorage,TouchableOpacity,Button
+  AsyncStorage,TouchableOpacity,Button,Image
 } from "react-native";
 import ForgetPassword from './ForgetPassword';
 import { createStackNavigator } from "react-navigation";
@@ -164,6 +164,7 @@ export default class Login extends Component {
 
   static createStackNavigator = {
     headerTitle: 'First screen',
+    backgroundColor:"black"
   };
   FunctionToOpenSecondActivity = () =>
   {
@@ -173,7 +174,7 @@ export default class Login extends Component {
 
   FunctionToOpenSixthActivity = () =>
   {
-     this.props.navigation.navigate('Fifth');
+     this.props.navigation.navigate('Home');
      
   }
   async onLoginPress() {
@@ -227,14 +228,26 @@ export default class Login extends Component {
             >
         <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
-        {/* <View style={{flexDirection:"row",marginTop:10}}>
+        <Text style={{color:'white',marginTop:25}}>OR</Text>
+        <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row',marginTop:30}}>
+               <TouchableOpacity >
+                <Image 
+                      style={styles.Custom}
+                          source={require('./icon/fb.png')}
+                      />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                 <Image 
+                style={styles.Custom}
+                    source={require('./icon/google.png')}
+                />
+                </TouchableOpacity>
+        </View>
+        <View style={{flexDirection:"row",marginTop:10}}>
         <Text style={{color:"grey",fontSize:12}}>Not Registered? Please </Text>
-        <TouchableOpacity
-              onPress={this.FunctionToOpenThirdActivity}
-            >
+        
         <Text  style={{color:"red",fontSize:12}}>Signup</Text>
-        </TouchableOpacity>
-        </View> */}
+        </View>
       </View>
     );
   }
@@ -296,6 +309,12 @@ const styles = StyleSheet.create({
     marginBottom:5,
     color:"white",
     //fontSize:12
+  },
+  Custom:{height:43,marginTop:5,
+    width:86,
+    marginTop:5,
+    marginBottom:30,marginLeft:10
+
   }
 });
 

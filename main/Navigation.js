@@ -8,6 +8,9 @@ import TabNavigator from './App'
 import Scroll from './Click_On_Album'
 import Album from './Album'
 import Music from './musicPlay'
+import Home from './Home'
+import MyFlatList from './components/flatList/FlatList'
+import StartClass from './Start_Class'
 class LoginActivity extends Component {
   
   static navigationOptions =
@@ -53,14 +56,16 @@ export default MainProject = StackNavigator(
    Fourth: { screen: SignUp }, 
    Fifth: { screen : Scroll},
    Sixth:{screen: Album}  ,
-   Seventh :{screen :Music}       
+   Seventh :{screen :Music},
+   Home : {screen: Home},   
+   StartClass:{screen : StartClass}
 },{
     initialRouteName: 'First',
     navigationOptions: {
-          headerBackStyle: {
-            backgroundColor: 'white',
+          headerStyle: {
+            backgroundColor: '#eee',
             marginBottom:0,
-            marginEnd:0
+            marginEnd:0,
           },
           headerBackImage: <Image style={{    height:30,
                                     width:30,
@@ -69,20 +74,15 @@ export default MainProject = StackNavigator(
                                     marginLeft:15,
                                     marginRight:10}} source={require('./icon/back.png')}
                              />,
-         headerRight: (
-                                <Button style={{color:'black',marginBottom:5}}
-                                  onPress={() => alert('This is a button!')}
-                                  title="Info"
+         //headerRight: 
+        //  (
+        //                         <Button style={{color:'black',marginBottom:5}}
+        //                           onPress={() => alert('This is a button!')}
+        //                           title="Info"
                                   
-                                />
-                              ),
-          headerBackTitle:'Bodypump 106',
-        headerBackTitleStyle:{
-                    color:'black'
-        },
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+        //                         />
+        //                       ),
+          headerBackTitle:false,
           marginBottom:0,
           padding:0,
         },

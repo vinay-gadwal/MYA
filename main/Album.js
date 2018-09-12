@@ -31,7 +31,7 @@ class DetailsScreen extends React.Component {
         initialRouteName: 'First',
         navigationOptions: {
           headerStyle: {
-            backgroundColor: 'white',
+            backgroundColor: 'black',
             marginBottom:0,
             marginEnd:0
           },
