@@ -1,11 +1,22 @@
-import React, { Component } from "react";
-import {AppRegistry,StyleSheet,Text,View,Button,TextInput,TouchableOpacity,Image,ImageBackground,StatusBar} from "react-native";
+import React, { Component } from 'react';
+import { View,AppRegistry,Button, ScrollView,ImageBackground,StatusBar, Image, Text,TouchableOpacity,StyleSheet } from 'react-native';
+import StartClass from './Start_Class'
 import Slider from 'react-native-slider'
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
+console.disableYellowBox = true;
 const pause = require('./icon/play.png');
 const play = require('./icon/pause.png');
-console.disableYellowBox = true;
 
+ class ProgressBar extends TrackPlayer.ProgressComponent {
+  render() {
+    return (
+      <View style={styles.progress}>
+        <View style={{ flex: this.getProgress(), backgroundColor: 'red' }} />
+        <View style={{ flex: 1 - this.getProgress(), backgroundColor: 'red' }} />
+      </View>
+    );
+  }
+}
 
 function ControlButton({ title, onPress }) {
   return (
@@ -15,77 +26,74 @@ function ControlButton({ title, onPress }) {
   );
 }
 
-export default class Music extends TrackPlayer.ProgressComponent {
-  
+export default class Scroll extends TrackPlayer.ProgressComponent {
   constructor(props){
     super(props);
-    this.state = { middlebutton:true,duration: 0,value:0.2, paused: true,
+    this.state = { middlebutton:false,duration: 0,value:0.2, paused: true,
                     totalLength: 1,
                     currentPosition: 0,
                     selectedTrack: 0,
                     repeatOn: false,
                     shuffleOn: false,
-               };
+              };
     
-    TrackPlayer.setupPlayer().then(() => {
-      var track = [{
-          id: 'unique track id',
-          url: require('./SampleAudio_0.4mb.mp3'),
-          // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
-          title: 'title',
-          artist:'art',
-                  },
-                  {
+              TrackPlayer.setupPlayer().then(() => {
+                var track = [{
                     id: 'unique track id',
                     url: require('./SampleAudio_0.4mb.mp3'),
                     // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                     title: 'title',
                     artist:'art',
-                            }
+                            },
+                            {
+                              id: 'unique track id',
+                              url: require('./cheapThrill.mp3'),
+                              // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
+                              title: 'title',
+                              artist:'art',
+                                      }
+                          ]
+                           TrackPlayer.add(track).then(()=>
+                           {
+                           TrackPlayer.paused();
+                            TrackPlayer.setVolume(1);
+                          })
+                    });
+              TrackPlayer.updateOptions({
+                stopWithApp: true,
+                capabilities: [
+                  TrackPlayer.CAPABILITY_PLAY,
+                  TrackPlayer.CAPABILITY_PAUSE,
+                  TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+                  TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
                 ]
-                 TrackPlayer.add(track).then(()=>
-                 {
-                 TrackPlayer.play();
-                  TrackPlayer.setVolume(1);
-                })
-          });
-    TrackPlayer.updateOptions({
-      stopWithApp: true,
-      capabilities: [
-        TrackPlayer.CAPABILITY_PLAY,
-        TrackPlayer.CAPABILITY_PAUSE,
-        TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
-        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
-      ]
-    });
-    }
-      static navigationOptions = {
-        headerStyle: {
-          backgroundColor: "rgb(164,0,0)",
-        } ,
-         headerRight: (
-                              <Image style={{    height:15,
-                                width:25,
-                                marginTop:40,
-                                marginBottom:40,
-                                marginLeft:30,
-                                marginRight:10
-                              }} source={require('./icon/cross.png')}
-                          />
-                              ),
-        headerBackImage: <Image style={{    height:20,
-                                  width:30,
-                                  marginTop:40,
-                                  marginBottom:40,
-                                  marginLeft:30,
-                                  marginRight:10
-                                }} source={require('./icon/BackWhite.png')}
-                           />,
-     
-      }
-    
+              });
+  }
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: "rgb(164,0,0)",
+    } ,
+    headerRight: (
+      <Image style={{    height:15,
+        width:25,
+        marginTop:40,
+        marginBottom:40,
+        marginLeft:30,
+        marginRight:10
+      }} source={require('./icon/more.png')}
+  />
+      ),
+headerBackImage: <Image style={{    height:20,
+          width:30,
+          marginTop:40,
+          marginBottom:40,
+          marginLeft:30,
+          marginRight:10
+        }} source={require('./icon/BackWhite.png')}
+   />
+  }
   
-    skipForward(){
+  skipForward(){
     if(this.state.duration>0){}
 
     }
@@ -162,12 +170,11 @@ export default class Music extends TrackPlayer.ProgressComponent {
         this.setState({ duration: this.state.duration + 15 });
       }
     }
-  
+ 
   render() {
-    TrackPlayer.getDuration().then(duration=>this.setState({duration}))
-
-    return (
-      <ImageBackground source={require('./image/musicplayerbg.png')} style={styles.backgroundImage} >
+    
+      return (
+        <ImageBackground source={require('./image/musicplayerbg.png')} style={styles.backgroundImage} >
        <View style={styles.container}>
             <StatusBar hidden={true} />            
             <Image
@@ -200,33 +207,25 @@ export default class Music extends TrackPlayer.ProgressComponent {
               }}
               value={this.state.isSeeking ? this.seek : this.state.position}
              />
-        {/* <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row'}}>
+        <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row',marginTop:15}}>
               <Text style={{color: 'white',backgroundColor:'transparent',width:40,marginRight:10,marginLeft:25,fontSize:14,justifyContent:'flex-end'}}>
                 { this.state.isSeeking ? this.formatTime(this.seek) :this.counting(this.state.position) }
               </Text>
               <Text style={{color: 'white',backgroundColor:'transparent',width:40,marginRight:30,marginLeft:35,fontSize:14}}>
                 { this.state.isSeeking ? this.formatTime(this.seek) : this.formatTime(this.state.duration) }
               </Text >
-        </View> */}
+        </View>
         <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row',marginTop:30}}>
-              <Button
-                      title="LOADING BUTTON"
-                      loading
-                      buttonStyle={{
-                        backgroundColor: "white",
-                        width: 300,
-                        height: 45,
-                        borderColor: "white",
-                        borderWidth: 2,
-                        borderRadius: 5,
-                        color: 'red',
-                            marginTop: 20,
-                            padding: 20,
-                            backgroundColor: 'green'
-                      }}
-                      containerStyle={{ marginTop: 20 }}
-                    />
-                <Button title="Auto Pause" />
+           <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
+              style={styles.button}
+            >
+            <Text style={styles.buttonText}>Auto Delay</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
+              style={styles.button1}
+            >
+            <Text style={styles.buttonText}>Auto Pause</Text>
+            </TouchableOpacity>
         </View>
         <View style={styles.controls}> 
             
@@ -275,7 +274,7 @@ const customStyles7 = StyleSheet.create({
     width: 65,
     height: 65,
     backgroundColor: 'white',
-    borderColor: '#F2ffffff',
+    borderColor: 'transparent',
     borderWidth: 8,
     borderRadius: 30,
   }
@@ -288,7 +287,7 @@ const styles = StyleSheet.create({
       },
       container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'center'
       },
       welcome: {
         fontSize: 20,textAlign: 'center',margin: 10,
@@ -297,10 +296,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',color: 'black',marginBottom: 5,
       },
       progress: {
-        height: 1,width: '100%',marginTop: 10,flexDirection: 'row',
+        height: 1,width: '100%',marginTop: 5,flexDirection: 'row',
       },
       controls: {
-        marginVertical: 20,flexDirection: 'row',marginTop:20
+      flexDirection: 'row'
       },
       controlButtonContainer: {
         flex: 1,
@@ -310,5 +309,36 @@ const styles = StyleSheet.create({
       },
       slider:{
       backgroundColor:"black",alignItems: 'stretch',justifyContent: 'center',
-      }
+      },
+      button: {
+        height: 50,
+        width: 130,
+        backgroundColor: "rgb(164,0,0)",
+                                    
+        justifyContent: "center",
+        
+        marginLeft:50,marginRight:0, marginTop:10,
+        paddingTop:15,
+        paddingBottom:15,
+        borderRadius:40,
+        borderWidth: 1,
+      },
+      button1: {
+        height: 50,
+        width: 130,
+        backgroundColor: "rgb(155,155,155)",
+        justifyContent: "center",
+         marginRight:50,marginLeft:0,
+        paddingTop:15,
+        paddingBottom:15,
+        borderRadius:40,
+        borderWidth: 1,
+      },
+      buttonText: {
+        fontSize: 16,
+        alignSelf: "center",
+        textAlign: "center",
+        color: "white",
+        fontWeight: "700",
+      },
 })

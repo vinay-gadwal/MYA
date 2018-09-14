@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
+  Button,Image,
   Navigator,TouchableOpacity
 } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
@@ -34,7 +34,15 @@ export default class HomeScreen extends Component {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM
         };
     }
-    
+    static navigationOptions = {
+      headerLeft: null,
+      headerStyle: {
+        backgroundColor: "white",
+      } ,
+      title:"Home",
+      headerBackTitle:'Bodypump 101',
+      tintColor: '#0087B7'
+    }
   _renderItemWithParallax ({item, index}, parallaxProps) {
         return (
             <SliderEntry
@@ -51,8 +59,8 @@ export default class HomeScreen extends Component {
 
         return (
             <View style={styles.exampleContainer}>
-                <Text style={styles.title}>{`Featured Albums`}</Text>
-                <Text style={styles.subtitle}>Browse our selected albums</Text>
+                {/* <Text style={styles.title}>{`Featured Albums`}</Text>
+                <Text style={styles.subtitle}>Browse our selected albums</Text> */}
                 <Carousel
                   ref={c => this._slider1Ref = c}
                   data={ENTRIES1}
@@ -90,7 +98,7 @@ export default class HomeScreen extends Component {
         );
     }
     myfunc(){
-      this.props.navigation.navigate('Fifth');
+      this.props.navigation.navigate('Scroll');
     }
 
   render() {
@@ -143,7 +151,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   exampleContainer: {
-        paddingVertical: 10
+        paddingVertical: 0
   },
   title: {
         paddingHorizontal: 30,

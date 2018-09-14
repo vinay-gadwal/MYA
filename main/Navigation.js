@@ -1,10 +1,10 @@
-import { StyleSheet, TextInput, View, Alert,Icon,Image, Button, Text} from 'react-native';
 import React,{Component} from 'react'
+import { StyleSheet, TextInput, View, Alert,Icon,Image, Button, Text} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import SignIn from './Login'
 import SignUp from './Register'
 import ForgetPassword from './ForgetPassword';
-import TabNavigator from './App'
+import App from './App'
 import Scroll from './Click_On_Album'
 import Album from './Album'
 import Music from './musicPlay'
@@ -13,10 +13,6 @@ import MyFlatList from './components/flatList/FlatList'
 import StartClass from './Start_Class'
 class LoginActivity extends Component {
   
-  static navigationOptions =
- {
-    title: 'AdManager',  
- };
 constructor(props) {
  
     super(props)
@@ -24,7 +20,7 @@ constructor(props) {
  
 UserLoginFunction = () =>{
      
-        this.props.navigation.navigate('Second');
+        this.props.navigation.navigate('ForgetPassword');
   }
  
   render() {
@@ -50,41 +46,30 @@ UserLoginFunction = () =>{
  
 export default MainProject = StackNavigator(
 {
-   First: { screen: TabNavigator },
-   Second: { screen: ForgetPassword },
+  App: { screen: App },
+   ForgetPassword: { screen: ForgetPassword },
    Third: { screen: SignIn },
-   Fourth: { screen: SignUp }, 
-   Fifth: { screen : Scroll},
+   SignUp: { screen: SignUp }, 
+   Scroll: { screen : Scroll},
    Sixth:{screen: Album}  ,
-   Seventh :{screen :Music},
+   Music :{screen :Music},
    Home : {screen: Home},   
    StartClass:{screen : StartClass}
 },{
-    initialRouteName: 'First',
+    initialRouteName: 'App',
     navigationOptions: {
           headerStyle: {
-            backgroundColor: '#eee',
-            marginBottom:0,
-            marginEnd:0,
+            backgroundColor: 'black',
+           flexBasis:0,
+           flexGrow:0,
+           flexShrink:0,
+           flexWrap:0,
           },
-          headerBackImage: <Image style={{    height:30,
-                                    width:30,
-                                    marginTop:40,
-                                    marginBottom:40,
-                                    marginLeft:15,
-                                    marginRight:10}} source={require('./icon/back.png')}
-                             />,
-         //headerRight: 
-        //  (
-        //                         <Button style={{color:'black',marginBottom:5}}
-        //                           onPress={() => alert('This is a button!')}
-        //                           title="Info"
-                                  
-        //                         />
-        //                       ),
-          headerBackTitle:false,
-          marginBottom:0,
-          padding:0,
+      
+        
+        },
+        header: {
+          visible: false,
         },
   });
  

@@ -6,7 +6,7 @@ import {
   View,
   Button,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,Image
 } from "react-native";
 
 export default class ForgetPassword extends Component {
@@ -20,12 +20,17 @@ export default class ForgetPassword extends Component {
   static navigationOptions = {
     headerStyle: {
       backgroundColor: "black",
-      headerTintColor: 'white',
-      headerTitleStyle: { color: 'white' },
-      elevation: null
-    }
-  };
-
+    } ,
+   
+headerBackImage: <Image style={{    height:20,
+          width:30,
+          marginTop:40,
+          marginBottom:40,
+          marginLeft:30,
+          marginRight:10
+        }} source={require('./icon/BackWhite.png')}
+   />
+  }
   onForgetPress() {
         this.props.navigation.navigate("Login");
   }

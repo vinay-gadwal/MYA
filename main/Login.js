@@ -149,7 +149,7 @@ import ForgetPassword from './ForgetPassword';
 import { createStackNavigator } from "react-navigation";
 
 const RootStack = createStackNavigator({
-    ForgetPassword: {
+  ForgetPassword: {
       screen: ForgetPassword
     },
   });
@@ -164,11 +164,14 @@ export default class Login extends Component {
 
   static createStackNavigator = {
     headerTitle: 'First screen',
-    backgroundColor:"black"
+    backgroundColor:"black",
+    header: {
+      visible: false,
+    },
   };
   FunctionToOpenSecondActivity = () =>
   {
-     this.props.navigation.navigate('Second');
+     this.props.navigation.navigate('ForgetPassword');
      
   }
 

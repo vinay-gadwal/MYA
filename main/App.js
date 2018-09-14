@@ -62,6 +62,9 @@ const routeConfig = {
      // paddingBottom: ,
      paddingTop:10,
     },
+    header: {
+      visible: false,
+    },
   }
 }
 

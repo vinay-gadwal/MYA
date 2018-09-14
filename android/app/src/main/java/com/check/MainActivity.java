@@ -2,7 +2,6 @@ package com.check;
 
 import com.facebook.react.ReactActivity;
 
-import com.zmxv.RNSound.RNSoundPackage; // <-- New
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
 
     @Override
@@ -11,7 +10,6 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
     mReactInstanceManager = ReactInstanceManager.builder()
       .setApplication(getApplication())
     
-      .addPackage(new MainReactPackage())
-      .addPackage(new RNSoundPackage());
+      .addPackage(new MainReactPackage());
   }
 }
