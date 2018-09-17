@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   Image,
   KeyboardAvoidingView,
-  AsyncStorage,Button,TouchableOpacity
+  AsyncStorage,Button,TouchableOpacity,ImageBackground
 } from "react-native";
 
 import { StackNavigator } from "react-navigation";
@@ -50,6 +50,8 @@ export default class Register extends React.Component {
 
   render() {
     return (
+      <ImageBackground source={require('./image/spl2x.png')} style={styles.backgroundImage} >
+
       <View behavior="padding" style={styles.container}>
         {/* <View style={styles.logoContainer}>
           <Image style={styles.logo} source={require("./banana.png")} />
@@ -119,6 +121,7 @@ export default class Register extends React.Component {
         </TouchableOpacity>
         </View> */}
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "black",
+   backgroundColor: "black",
     padding: 20,
     paddingTop: 50
   },
@@ -179,7 +182,10 @@ const styles = StyleSheet.create({
   margin:{
     marginBottom:5,
     color:"white"
-  }
+  }, backgroundImage: {
+    flex: 1,
+   // backgroundColor:"rgb(164,0,0)"
+    },
 });
 
 AppRegistry.registerComponent("Register", () => Register);

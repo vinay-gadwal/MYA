@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View,AppRegistry,Button, ScrollView, Image, Text,TouchableOpacity,StyleSheet } from 'react-native';
 import StartClass from './Start_Class'
 import Slider from 'react-native-slider'
+import DropdownMenu from 'react-native-dropdown-menu';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 console.disableYellowBox = true;
 const pause = require('./icon/greyplay.png');
@@ -34,20 +35,20 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                     currentPosition: 0,
                     selectedTrack: 0,
                     repeatOn: false,
-                    shuffleOn: false,
+                    shuffleOn: false,text: ''
               };
     
               TrackPlayer.setupPlayer().then(() => {
                 var track = [{
                     id: 'unique track id',
-                    url: require('./SampleAudio_0.4mb.mp3'),
+                    url: require('./IAmHero.mp3'),
                     // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                     title: 'title',
                     artist:'art',
                             },
                             {
                               id: 'unique track id',
-                              url: require('./cheapThrill.mp3'),
+                              url: require('./StillTheOne.mp3'),
                               // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                               title: 'title',
                               artist:'art',
@@ -70,6 +71,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
               });
   }
   static navigationOptions = {
+    
     headerStyle: {
       backgroundColor: "white",
     } ,
@@ -148,8 +150,52 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
        this.props.navigation.navigate('Music');
        
     }
+  Drop_Down(){
+  class Demo extends Component {
+ 
+    constructor(props) {
+      super(props);
+      this.state = {
+        text: ''
+      };
+    }
+    
+    render() {
+      var data = [["C", "Java", "JavaScript", "PHP"], ["Python", "Ruby"], ["Swift", "Objective-C"]];
+      return (
+        <View style={{flex: 1}}>
+          <View style={{height: 64}} />
+          <DropdownMenu
+            style={{flex: 1}}
+            bgColor={'white'}
+            tintColor={'#666666'}
+            activityTintColor={'green'}
+            // arrowImg={}      
+            // checkImage={}   
+            // optionTextStyle={{color: '#333333'}}
+            // titleStyle={{color: '#333333'}} 
+            // maxHeight={300} 
+            handler={(selection, row) => this.setState({text: data[selection][row]})}
+            data={data}
+          >
+   
+            <View style={{flex: 1}}>
+              <Text>
+                {this.state.text} is the best language in the world
+              </Text>
+            </View>
+   
+          </DropdownMenu>
+        </View>
+      );
+    }
+    
+  }
+}
   
   render() {
+    var data = [["C", "Java", "JavaScript", "PHP"], ["Python", "Ruby"], ["Swift", "Objective-C"]];
+
       return (
           <View style={{backgroundColor:"white"}}>
             <View style={{flexDirection:'row',backgroundColor:"rgb(246,246,248)"}}>
@@ -158,9 +204,9 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
             </View>
            
               
-            <View style={{flexDirection:'row',backgroundColor:'white',height:280}}>
+            <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:280}}>
             <ScrollView>
-            <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1,marginTop:1}}>
+            <View style={{flexDirection:'row',backgroundColor:'rgb(247,237,236)',marginBottom:1,marginTop:1}}>
                       <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
                     <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
                       <Text>Still The One</Text>
@@ -172,11 +218,11 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={this.Drop_Down()}>
                       <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
                       </TouchableOpacity>
               </View>
-             <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1,marginTop:1}}>
+             <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
                       <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
                     <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
                       <Text>Still The One</Text>
@@ -188,7 +234,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={this.Drop_Down()}>
                       <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
                       </TouchableOpacity>
               </View>
@@ -279,10 +325,10 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                 <Image 
                 //style={styles.ButtonStyle1}
                 style={{height:28,marginTop:15,
-                  width:27,
+                  width:30,
                   marginTop:5,
                   marginLeft:30}}
-                    source={require('./icon/dropdown.png')}
+                    source={require('./icon/up_arrow.png')}
                 />
             </TouchableOpacity>
               <Text style={{marginTop:5,marginLeft:35,fontSize:16,fontWeight:'bold'}}>Still The One</Text>

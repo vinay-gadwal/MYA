@@ -3,6 +3,8 @@ import { View,AppRegistry,Button, ScrollView,ImageBackground,StatusBar, Image, T
 import StartClass from './Start_Class'
 import Slider from 'react-native-slider'
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
+import DropdownMenu from 'react-native-dropdown-menu';
+
 console.disableYellowBox = true;
 const pause = require('./icon/play.png');
 const play = require('./icon/pause.png');
@@ -40,14 +42,14 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
               TrackPlayer.setupPlayer().then(() => {
                 var track = [{
                     id: 'unique track id',
-                    url: require('./SampleAudio_0.4mb.mp3'),
+                    url: require('./IAmHero.mp3'),
                     // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                     title: 'title',
                     artist:'art',
                             },
                             {
                               id: 'unique track id',
-                              url: require('./cheapThrill.mp3'),
+                              url: require('./StillTheOne.mp3'),
                               // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                               title: 'title',
                               artist:'art',
@@ -70,14 +72,16 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
               });
   }
   static navigationOptions = {
-    headerStyle: {
-      backgroundColor: "rgb(164,0,0)",
-    } ,
+    title:"Home",
+      headerBackTitle:'Bodypump 101',
+      tintColor: 'black',
+    marginBottom:0,
+    marginTop:0,
     headerRight: (
-      <Image style={{    height:15,
-        width:25,
-        marginTop:40,
-        marginBottom:40,
+      <Image style={{    height:40,
+        width:50,
+        marginTop:10,
+        marginBottom:10,
         marginLeft:30,
         marginRight:10
       }} source={require('./icon/more.png')}

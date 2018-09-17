@@ -39,9 +39,8 @@ export default class HomeScreen extends Component {
       headerStyle: {
         backgroundColor: "white",
       } ,
-      title:"Home",
       headerBackTitle:'Bodypump 101',
-      tintColor: '#0087B7'
+      tintColor: 'black',
     }
   _renderItemWithParallax ({item, index}, parallaxProps) {
         return (

@@ -58,6 +58,7 @@ export default MainProject = StackNavigator(
 },{
     initialRouteName: 'App',
     navigationOptions: {
+      
           headerStyle: {
             backgroundColor: 'black',
            flexBasis:0,
@@ -68,9 +69,7 @@ export default MainProject = StackNavigator(
       
         
         },
-        header: {
-          visible: false,
-        },
+       
   });
  
 const styles = StyleSheet.create({

@@ -143,7 +143,7 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
-  AsyncStorage,TouchableOpacity,Button,Image
+  AsyncStorage,TouchableOpacity,Button,Image,ImageBackground
 } from "react-native";
 import ForgetPassword from './ForgetPassword';
 import { createStackNavigator } from "react-navigation";
@@ -164,10 +164,11 @@ export default class Login extends Component {
 
   static createStackNavigator = {
     headerTitle: 'First screen',
-    backgroundColor:"black",
+    backgroundColor:"white",
     header: {
       visible: false,
     },
+     headerBackImage: require('./image/musicplayerbg.png')
   };
   FunctionToOpenSecondActivity = () =>
   {
@@ -191,6 +192,8 @@ export default class Login extends Component {
 
   render() {
     return (
+      <ImageBackground source={require('./image/spl2x.png')} style={styles.backgroundImage} >
+
       <View behavior="padding" style={styles.container}>
         <KeyboardAvoidingView>
           <Text style={styles.margin}>Email</Text>
@@ -252,6 +255,7 @@ export default class Login extends Component {
         <Text  style={{color:"red",fontSize:12}}>Signup</Text>
         </View>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -261,7 +265,7 @@ const styles = StyleSheet.create({
     flex: 1.2,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "black",
+   backgroundColor:'black',
     padding: 20,
     paddingTop: 100
   },
@@ -318,7 +322,12 @@ const styles = StyleSheet.create({
     marginTop:5,
     marginBottom:30,marginLeft:10
 
-  }
+  },
+  backgroundImage: {
+    flex: 1,
+   // backgroundColor:"rgb(164,0,0)"
+
+    },
 });
 
 AppRegistry.registerComponent("Login", () => Login);

@@ -10,8 +10,10 @@ import SignUp from './Register'
 
 const styles = StyleSheet.create({
   icon: {
-    width: 26,
-    height: 26
+    width: 65,
+    height: 40,
+    marginTop: 65
+
   }
 })
 
@@ -19,52 +21,54 @@ const routes = {
   SignIn: {
     screen: SignIn,
     navigationOptions: {
-      title: 'Login',
-      // tabBarIcon: ({ tintColor }) => (
-      //   <Image
-      //     source={require('./img/red-line-png-0.png')}
-      //     style={[styles.icon, { tintColor }]}
-      //   />
-      // )
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          source={require('./img/red-line-png-0.png')}
+          style={[styles.icon, { tintColor }]}
+        />
+      ),
+      title: 'Login', 
+
       
     }
   },
   SignUp: {
     screen: SignUp,
+    
     navigationOptions: {
       title: 'Signup',
-      // tabBarIcon: ({ tintColor }) => (
-      //   <Image
-      //     source={require('./img/red-line-png-0.png')}
-      //     style={[styles.icon, { tintColor }]}
-      //   />
-      // )
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          source={require('./img/red-line-png-0.png')}
+          style={[styles.icon, { tintColor }]}
+        />
+      )
     }
   },
 }
 
 const routeConfig = {
   tabBarPosition: 'top',
-  backgroundColor:'black',
+  header: null,
   tabBarOptions: {
-    //showLabel: true,
     activeTintColor: "red",
     inactiveTintColor: "black",
     indicatorStyle: { backgroundColor: "grey" },
     labelStyle: {
-      //fontFamily: fonts.base,
-      fontSize: 18,
-      color:"white"
+      fontSize: 20,
+      color:"white",
+      marginBottom:12,
+      marginTop:0,
+      fontWeight:'bold'
     },
+    tabbarIconPosition:'bottom',
     style: {
+      
       backgroundColor: 'black',
       borderTopWidth: 0,
-     // paddingBottom: ,
      paddingTop:10,
     },
-    header: {
-      visible: false,
-    },
+    
   }
 }
 
