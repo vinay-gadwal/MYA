@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-import { View,AppRegistry,Button, ScrollView, Image, Text,TouchableOpacity,StyleSheet } from 'react-native';
+import { View,AppRegistry,Switch, ScrollView, Image, Text,TouchableOpacity,StyleSheet } from 'react-native';
 import StartClass from './Start_Class'
 import Slider from 'react-native-slider'
-import DropdownMenu from 'react-native-dropdown-menu';
+// import DropdownMenu from 'react-native-dropdown-menu';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
+import {
+  Menu,
+  MenuProvider,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 console.disableYellowBox = true;
 const pause = require('./icon/greyplay.png');
 const play = require('./icon/greypause.png');
+ 
 
- class ProgressBar extends TrackPlayer.ProgressComponent {
+
+class ProgressBar extends TrackPlayer.ProgressComponent {
   render() {
     return (
       <View style={styles.progress}>
@@ -27,6 +36,8 @@ function ControlButton({ title, onPress }) {
   );
 }
 
+
+
 export default class Scroll extends TrackPlayer.ProgressComponent {
   constructor(props){
     super(props);
@@ -35,7 +46,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                     currentPosition: 0,
                     selectedTrack: 0,
                     repeatOn: false,
-                    shuffleOn: false,text: ''
+                    shuffleOn: false,text: '', SwitchOnValueHolder :  false,SwitchOnValueHolder1:false
               };
     
               TrackPlayer.setupPlayer().then(() => {
@@ -113,7 +124,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                           style={{height:30,marginTop:15,
                             width:30,
                             marginTop:5,
-                            marginBottom:2,marginLeft:130,marginRight:20}}
+                            marginBottom:2,marginLeft:130}}
                             source={ imgSource }
                           />
               </View>
@@ -130,7 +141,15 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
         TrackPlayer.play();
         }
   }
-  
+
+  ShowAlert = (value) =>{
+ 
+    this.setState({
+   
+      SwitchOnValueHolder: value
+    }) 
+  }
+
   skipToNext = async () => {
           try {
             await TrackPlayer.skipToNext()
@@ -147,55 +166,20 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
   
   FunctionToOpenSeventhActivity = () =>
     {
-       this.props.navigation.navigate('Music');
+       this.props.navigation.navigate('StartClass');
        
     }
-  Drop_Down(){
-  class Demo extends Component {
+    Drop_Do= (value) =>{
  
-    constructor(props) {
-      super(props);
-      this.state = {
-        text: ''
-      };
+      this.setState({
+     
+        SwitchOnValueHolder1: value
+      }) 
     }
     
-    render() {
-      var data = [["C", "Java", "JavaScript", "PHP"], ["Python", "Ruby"], ["Swift", "Objective-C"]];
-      return (
-        <View style={{flex: 1}}>
-          <View style={{height: 64}} />
-          <DropdownMenu
-            style={{flex: 1}}
-            bgColor={'white'}
-            tintColor={'#666666'}
-            activityTintColor={'green'}
-            // arrowImg={}      
-            // checkImage={}   
-            // optionTextStyle={{color: '#333333'}}
-            // titleStyle={{color: '#333333'}} 
-            // maxHeight={300} 
-            handler={(selection, row) => this.setState({text: data[selection][row]})}
-            data={data}
-          >
-   
-            <View style={{flex: 1}}>
-              <Text>
-                {this.state.text} is the best language in the world
-              </Text>
-            </View>
-   
-          </DropdownMenu>
-        </View>
-      );
-    }
-    
-  }
-}
   
   render() {
-    var data = [["C", "Java", "JavaScript", "PHP"], ["Python", "Ruby"], ["Swift", "Objective-C"]];
-
+    
       return (
           <View style={{backgroundColor:"white"}}>
             <View style={{flexDirection:'row',backgroundColor:"rgb(246,246,248)"}}>
@@ -204,11 +188,11 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
             </View>
            
               
-            <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:280}}>
+            <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
             <ScrollView>
             <View style={{flexDirection:'row',backgroundColor:'rgb(247,237,236)',marginBottom:1,marginTop:1}}>
                       <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                      <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
                       <Text>Still The One</Text>
                       <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
                     </View>
@@ -218,11 +202,47 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
                       </TouchableOpacity>
-                      <TouchableOpacity onPress={this.Drop_Down()}>
-                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                      </TouchableOpacity>
+                     
+                      <View style={{backgroundColor:'transparent'}}>
+                        <MenuProvider>
+                        <Menu style={{backgroundColor:'transparent'}}>
+                          <MenuTrigger style={{backgroundColor:'transparent'}}>
+                          <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                          </MenuTrigger>
+                          <MenuOptions style={{right:110,backgroundColor:'transparent',marginTop:80}}>
+                          
+                          <View style={{flexDirection: 'row'}}>
+                          <MenuOption style={{fontSize:25}} value={1} text='Auto Play      ' />                         
+                          <Switch                      
+                          onValueChange={(value) => this.ShowAlert(value)}
+                          style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                          value={this.state.SwitchOnValueHolder}
+                          tintColor="red"
+                          thumbTintColor={this.state.value ? "grey" : "grey"}
+                          onTintColor="green"
+                          style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} />
+                          
+                          </View>
+                         
+                          <View style={{flexDirection: 'row'}}>
+                          <MenuOption style={{fontSize:25,}} value={1} text='Auto Delay   ' />                         
+                          <Switch                      
+                          onValueChange={(value) => this.ShowAlert(value)}
+                          style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                          value={this.state.SwitchOnValueHolder1}
+                          tintColor="red"
+                          thumbTintColor={this.state.value ? "grey" : "grey"}
+                          onTintColor="green"
+                          style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }],marginLeft:1 }} />
+                          
+                          </View>
+                         <MenuOption  text='Set As Class Song' />
+                         </MenuOptions>
+                       </Menu>
+                     </MenuProvider>
+                    </View>
               </View>
-             <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
+             {/* <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
                       <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
                     <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
                       <Text>Still The One</Text>
@@ -233,9 +253,6 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       </TouchableOpacity>
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={this.Drop_Down()}>
-                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
                       </TouchableOpacity>
               </View>
               <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
@@ -250,9 +267,22 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <View >
+                    <MenuProvider>
+                    <Menu onSelect={value => alert(`Selected number: ${value}`)}>
+                      <MenuTrigger >
                       <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                      </TouchableOpacity>
+                      </MenuTrigger>
+                      <MenuOptions style={{right:80,backgroundColor:'white'}}>
+                        <MenuOption value={1} text='One' />
+                        <MenuOption value={2}>
+                          <Text style={{color: 'red'}}>Two</Text>
+                        </MenuOption>
+                        <MenuOption value={3} disabled={true} text='Three' />
+                      </MenuOptions>
+                    </Menu>
+                  </MenuProvider>
+                    </View>
               </View>
               <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
                       <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
@@ -266,13 +296,22 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
                       </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={{ height:28,
-                              width:27,
-                              marginTop:40,
-                              marginBottom:40,
-                                marginRight:200,marginLeft:2}} source={require('./icon/more.png')}/>              
-                      </TouchableOpacity>
+                    <View >
+                      <MenuProvider>
+                      <Menu onSelect={value => alert(`Selected number: ${value}`)}>
+                        <MenuTrigger >
+                        <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                        </MenuTrigger>
+                        <MenuOptions style={{right:80,backgroundColor:'white'}}>
+                          <MenuOption value={1} text='One' />
+                          <MenuOption value={2}>
+                            <Text style={{color: 'red'}}>Two</Text>
+                          </MenuOption>
+                          <MenuOption value={3} disabled={true} text='Three' />
+                        </MenuOptions>
+                      </Menu>
+                      </MenuProvider>
+                    </View>
               </View>
               <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:2}}>
                       <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
@@ -286,14 +325,26 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                       <TouchableOpacity>
                       <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
                       </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                      </TouchableOpacity>
-              </View>
+                      <View >
+                      <MenuProvider>
+                      <Menu onSelect={value => alert(`Selected number: ${value}`)}>
+                        <MenuTrigger >
+                        <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                        </MenuTrigger>
+                        <MenuOptions style={{right:80,backgroundColor:'white'}}>
+                          <MenuOption value={1} text='One' />
+                          <MenuOption value={2}>
+                            <Text style={{color: 'red'}}>Two</Text>
+                          </MenuOption>
+                          <MenuOption value={3} disabled={true} text='Three' />
+                        </MenuOptions>
+                      </Menu>
+                      </MenuProvider>
+                    </View>
+              </View> */}
               </ScrollView>
             </View>
            
-
               <Slider 
                 style={{ flexDirection: 'column',backgroundColor: 'white',height:15,marginBottom:5,marginTop:5}}
                 thumbStyle={customStyles7.thumb}
@@ -318,7 +369,6 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                 }}
                 value={this.state.isSeeking ? this.seek : this.state.position}
               />   
-
             <View style={styles.controls}> 
               
             <TouchableOpacity onPress={this.FunctionToOpenSeventhActivity}>        
@@ -328,7 +378,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                   width:30,
                   marginTop:5,
                   marginLeft:30}}
-                    source={require('./icon/up_arrow.png')}
+                    source={require('./icon/uparrow.png')}
                 />
             </TouchableOpacity>
               <Text style={{marginTop:5,marginLeft:35,fontSize:16,fontWeight:'bold'}}>Still The One</Text>
@@ -338,19 +388,26 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
             {this.renderImage()}
             </TouchableOpacity>               
             </View>
-            <View style={{flexDirection:'row',marginBottom:30,justifyContent:'space-between'}}>
+            <View style={{flexDirection:'row',marginBottom:30,}}>
+            <View style={{flexDirection:'row'}}>
             <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
               style={styles.button}
               //onPress={this.onLoginPress.bind(this)}
             >
+            <Image style={styles.clockButton} source={require('./icon/startclassclock.png')} />              
             <Text style={styles.buttonText}>Start Class</Text>
             </TouchableOpacity>
+            </View>
+            <View style={{flexDirection:'row'}}>
+
             <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
               style={styles.button1}
               //onPress={this.onLoginPress.bind(this)}
             >
+            <Image style={styles.clockButton} source={require('./icon/startclassclock.png')} />              
             <Text style={styles.buttonText}>Start Workout</Text>
             </TouchableOpacity>
+              </View>
               </View>
             <View>
             </View>
@@ -379,8 +436,24 @@ const styles = StyleSheet.create({
               width:27,
               marginTop:40,
               marginBottom:40,
-                marginRight:20
+                marginRight:15,
+                backgroundColor:'transparent'
             }, 
+            buttonText: {
+              fontSize: 20,
+              alignSelf: "center",
+              textAlign: "center",
+              color: "white",
+              fontWeight: "500",
+              marginBottom:10
+            },
+            clockButton:{
+              height:30,
+              width:30,
+              marginLeft:8,
+              marginTop:10,
+              marginRight:10
+            },
             controls: {
               flexDirection: 'row',backgroundColor:"white",marginTop:14,padding:0,marginBottom:10
             },
@@ -392,7 +465,8 @@ const styles = StyleSheet.create({
               marginTop: 5,
               justifyContent: "center",
               paddingVertical: 10,
-              marginBottom: 10
+              marginBottom: 10,
+              flexDirection:'row'
             },
             button1: {
               height: 80,
@@ -401,17 +475,11 @@ const styles = StyleSheet.create({
               //alignSelf: "stretch",
               marginTop: 5,
               justifyContent: "center",
-              paddingVertical: 15,
-              marginBottom: 10
+              paddingVertical: 10,
+              marginBottom: 10,
+              flexDirection:'row'
             },
-            buttonText: {
-              fontSize: 18,
-              alignSelf: "center",
-              textAlign: "center",
-              color: "white",
-              fontWeight: "700",
-              marginBottom:20
-            },
+          
             ButtonStyle1:{
               height:28,
               width:27,
@@ -424,6 +492,13 @@ const styles = StyleSheet.create({
               width:27,
               marginTop:30,
               marginLeft:20,
-            }
-});
-
+            },
+            MainContainer :{
+ 
+              justifyContent: 'center',
+              alignItems: 'center',
+              flex:1,
+              margin: 10
+               
+              }
+})

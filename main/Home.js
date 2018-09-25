@@ -14,7 +14,7 @@ import { ENTRIES1 } from './static/entries';
 import { ENTRIES2 } from './static/grid';
 import SliderEntry from './components/SliderEntry';
 import MyFlatList from './components/flatList/FlatList';
-
+import Drawer from './DrawerNavigation'
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 const IS_ANDROID = Platform.OS === 'android';
@@ -35,12 +35,17 @@ export default class HomeScreen extends Component {
         };
     }
     static navigationOptions = {
+      
+        Drawer:{
+          screen: Drawer
+        },
       headerLeft: null,
       headerStyle: {
         backgroundColor: "white",
       } ,
+      title:"Home",
       headerBackTitle:'Bodypump 101',
-      tintColor: 'black',
+      tintColor: '#0087B7'
     }
   _renderItemWithParallax ({item, index}, parallaxProps) {
         return (

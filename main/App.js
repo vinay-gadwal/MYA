@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Image, StyleSheet,Text } from 'react-native'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator,StackNavigator } from 'react-navigation'
 console.disableYellowBox = true;
 import ForgetPassword from './ForgetPassword';
 //mport { colors, fonts } from '../theme'
@@ -10,10 +10,11 @@ import SignUp from './Register'
 
 const styles = StyleSheet.create({
   icon: {
-    width: 65,
-    height: 40,
-    marginTop: 65
-
+    width: 55,
+    height: 10,
+    paddingTop:300,
+    paddingHorizontal:20,
+    marginTop:5
   }
 })
 
@@ -21,20 +22,18 @@ const routes = {
   SignIn: {
     screen: SignIn,
     navigationOptions: {
+      title: 'Login',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./img/red-line-png-0.png')}
           style={[styles.icon, { tintColor }]}
         />
-      ),
-      title: 'Login', 
-
+      )
       
     }
   },
   SignUp: {
     screen: SignUp,
-    
     navigationOptions: {
       title: 'Signup',
       tabBarIcon: ({ tintColor }) => (
@@ -45,31 +44,38 @@ const routes = {
       )
     }
   },
+  
 }
 
+const navigationOptions = {
+  
+  headerStyle: {
+    header :true,
+  } 
+}
 const routeConfig = {
   tabBarPosition: 'top',
-  header: null,
+  backgroundColor:'black',
   tabBarOptions: {
-    activeTintColor: "red",
+    //showLabel: true,
+    activeTintColor: "rgb(164,0,0)",
     inactiveTintColor: "black",
     indicatorStyle: { backgroundColor: "grey" },
     labelStyle: {
-      fontSize: 20,
-      color:"white",
-      marginBottom:12,
-      marginTop:0,
-      fontWeight:'bold'
+      //fontFamily: fonts.base,
+      fontSize: 18,
+      color:"white"
     },
-    tabbarIconPosition:'bottom',
     style: {
-      
       backgroundColor: 'black',
       borderTopWidth: 0,
+     // paddingBottom: ,
      paddingTop:10,
     },
-    
+    header: {
+      visible: false,
+    },
   }
 }
 
-export default TabNavigator(routes, routeConfig)
+export default TabNavigator(routes, routeConfig,navigationOptions)

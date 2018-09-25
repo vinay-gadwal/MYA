@@ -7,10 +7,11 @@ import {
   View,
   TextInput,
   TouchableHighlight,
-  Image,
+  Alert,
   KeyboardAvoidingView,
-  AsyncStorage,Button,TouchableOpacity,ImageBackground
+  AsyncStorage,Button,TouchableOpacity
 } from "react-native";
+const api = require('./API');
 
 import { StackNavigator } from "react-navigation";
 
@@ -18,10 +19,12 @@ export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      name: "",
-      password: "",
-      password_confirmation: ""
+      userName: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  loading:false
     };
   }
 
@@ -37,80 +40,135 @@ export default class Register extends React.Component {
      
   }
 
-  async onRegisterPress() {
-    const { email, password, name } = this.state;
-    console.log(email);
-    console.log(name);
-    console.log(password);
-    await AsyncStorage.setItem("email", email);
-    await AsyncStorage.setItem("name", name);
-    await AsyncStorage.setItem("password", password);
-    this.props.navigation.navigate("Boiler");
-  }
+  
+  handleClick(){
+    if(this.state.userName == "" )
+    {
+      Alert.alert("Enter Data in All Field")
+      console.log("empty data")
+    }
+  else{
+    this.setState({
+      loading: true
+    });
+
+    fetch(api.base_url + "/alfresco/service/api/people", {
+  
+     method: 'POST',
+     headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Basic YWRtaW46OTVTalh1aFFzZ2hY'
+                },
+        
+      // body : 
+      body: JSON.stringify({
+        userName: this.state.userName,
+            firstName: this.state.firstName,
+            lastName : this.state.lastName,
+            email:this.state.email,
+            password:this.state.password
+           })
+      })
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState({
+             loading: false
+         }, ()=>{
+           if (response && response.data && response.data.ticket) {
+             console.log(response);
+              // AsyncStorage.setItem('user_ticket', response.data.ticket);
+                  Alert.alert("Registration successfull")               
+           }else{
+             this.setState({ spinner: false });
+             setTimeout(() => {
+               Alert.alert("Problem In Registration");
+             }, 100);       
+           
+                   }
+         }
+       );                         
+})
+      
+     
+      .done()      
+                  
+    }
+}
+
 
   render() {
     return (
-      <ImageBackground source={require('./image/spl2x.png')} style={styles.backgroundImage} >
-
       <View behavior="padding" style={styles.container}>
         {/* <View style={styles.logoContainer}>
           <Image style={styles.logo} source={require("./banana.png")} />
           <Text style={styles.subtext}>Sign Up:</Text>
         </View> */}
         <KeyboardAvoidingView>
-          <Text style={styles.margin}>Name</Text>
+          <Text style={styles.margin}>User Name</Text>
           <TextInput
-            value={this.state.name}
-            onChangeText={name => this.setState({ name })}
+            value={this.state.userName}
+            onChangeText={userName => this.setState({ userName })}
             style={styles.input}
-            placeholder="Name"
+            placeholder="UserName"
             placeholderTextColor="black"
+            autoCapitalize="none"
             returnKeyType="next"
             onSubmitEditing={() => this.emailInput.focus()}
+          />
+          <Text style={styles.margin}>First Name</Text>
+          <TextInput
+            value={this.state.firstName}
+            onChangeText={firstName => this.setState({ firstName })}
+            style={styles.input}
+            placeholderTextColor="black"
+            returnKeyType="next"
+            // ref={input => (this.emailInput = input)}
+            // onSubmitEditing={() => this.passwordCInput.focus()}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="First Name"
+          />
+          <Text style={styles.margin}>Last Name</Text>
+          <TextInput
+            value={this.state.lastName}
+            onChangeText={lastName => this.setState({ lastName })}
+            style={styles.input}
+            placeholder="Last Name"
+            autoCapitalize="none"
+            placeholderTextColor="black"
+            autoCorrect={false}
+            // ref={input => (this.passwordCInput = input)}
+            // onSubmitEditing={() => this.passwordInput.focus()}
+            returnKeyType="next"
           />
           <Text style={styles.margin}>Email</Text>
           <TextInput
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
             style={styles.input}
+            placeholder="Email"
+            autoCorrect={false}
+            autoCapitalize="none"
             placeholderTextColor="black"
             returnKeyType="next"
-            ref={input => (this.emailInput = input)}
-            onSubmitEditing={() => this.passwordCInput.focus()}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            autoCorrect={false}
-            placeholder="Email"
+            onSubmitEditing={() => this.emailInput.focus()}
           />
           <Text style={styles.margin}>Password</Text>
           <TextInput
             value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="black"
-            ref={input => (this.passwordCInput = input)}
-            onSubmitEditing={() => this.passwordInput.focus()}
-            returnKeyType="next"
-            secureTextEntry
-          />
-          <Text style={styles.margin}>Confirm Password</Text>
-          <TextInput
-            value={this.state.password}
             onChangeText={password_confirmation => this.setState({ password_confirmation })}
             style={styles.input}
-            placeholder="Confirm Password"
-            secureTextEntry={true}
+            placeholder="Password"
             placeholderTextColor="black"
             returnKeyType="go"
-            secureTextEntry
             ref={input => (this.passwordInput = input)}
+            // secureTextEntry
           />
         </KeyboardAvoidingView>
         <TouchableHighlight
-          onPress={this.FunctionToOpenThirdActivity}
           style={styles.button}
+          onPress={() => this.handleClick()}
         >
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableHighlight>
@@ -121,7 +179,6 @@ export default class Register extends React.Component {
         </TouchableOpacity>
         </View> */}
       </View>
-      </ImageBackground>
     );
   }
 }
@@ -131,9 +188,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-   backgroundColor: "black",
+    backgroundColor: "black",
     padding: 20,
-    paddingTop: 50
   },
   logoContainer: {
     alignItems: "center",
@@ -152,6 +208,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.2)",
     color: "black",
     paddingHorizontal: 10,
+    fontSize:18
 
   },
   button: {
@@ -182,10 +239,7 @@ const styles = StyleSheet.create({
   margin:{
     marginBottom:5,
     color:"white"
-  }, backgroundImage: {
-    flex: 1,
-   // backgroundColor:"rgb(164,0,0)"
-    },
+  }
 });
 
 AppRegistry.registerComponent("Register", () => Register);

@@ -36,19 +36,19 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                     repeatOn: false,
                     shuffleOn: false,
               };
-    
+
               TrackPlayer.setupPlayer().then(() => {
                 var track = [{
-                    id: 'unique track id',
-                    url: require('./SampleAudio_0.4mb.mp3'),
-                    // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
+                    id: '1',
+                    // url: require('./SampleAudio_0.4mb.mp3'),
+                    url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                     title: 'title',
                     artist:'art',
                             },
                             {
-                              id: 'unique track id',
-                              url: require('./cheapThrill.mp3'),
-                              // url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
+                              id: '2',
+                              // url: require('./cheapThrill.mp3'),
+                              url: 'http://russprince.com/hobbies/files/13%20Beethoven%20-%20Fur%20Elise.mp3',
                               title: 'title',
                               artist:'art',
                                       }
@@ -92,13 +92,13 @@ headerBackImage: <Image style={{    height:20,
         }} source={require('./icon/BackWhite.png')}
    />
   }
-  
+
   skipForward(){
     if(this.state.duration>0){}
 
     }
 
-    skipToNext = async () => 
+    skipToNext = async () =>
     {
             try {
               await TrackPlayer.skipToNext()
@@ -107,7 +107,7 @@ headerBackImage: <Image style={{    height:20,
             }
     }
 
-    skipToPrevious = async () => 
+    skipToPrevious = async () =>
     {
               try {
                 await TrackPlayer.skipToPrevious()
@@ -115,7 +115,7 @@ headerBackImage: <Image style={{    height:20,
     }
     counting(seconds)
     {
-              return seconds > 3600 
+              return seconds > 3600
               ?
                 [
                   parseInt(seconds / 60 / 60),
@@ -132,7 +132,7 @@ headerBackImage: <Image style={{    height:20,
     //   this.formatTime();
     //   this.renderImage();
     // }
-    formatTime(seconds) 
+    formatTime(seconds)
     {
       if(seconds > 0){
         var rem = (this.state.duration) - (this.state.position);
@@ -166,29 +166,29 @@ headerBackImage: <Image style={{    height:20,
     }
     onBack() {
       if (this.state.duration > 0) {
-        
+
         this.setState({ duration: this.state.duration + 15 });
       }
     }
- 
+
   render() {
-    
+      TrackPlayer.getDuration().then((dur)=>{this.setState({duration: dur})});
       return (
         <ImageBackground source={require('./image/musicplayerbg.png')} style={styles.backgroundImage} >
        <View style={styles.container}>
-            <StatusBar hidden={true} />            
+            <StatusBar hidden={true} />
             <Image
                 style={{width: 250, height: 250,marginLeft:60,marginRight:100,marginBottom:30}}
                 source={{uri: 'https://awllpaper.com/wp-content/uploads/2018/03/music-wallpaper-mobile-best-mobile-music-wallpapers-7.jpg'}}
             />
-        
-            
-            <Slider 
+
+
+            <Slider
                style={{marginLeft:35,marginRight:35}}
                thumbStyle={customStyles7.thumb}
                 trackStyle={customStyles7.track}
               minimumValue          = {0}
-              maximumValue          = {this.state.duration}
+              maximumValue          = {Math.floor(parseInt(this.state.duration?this.state.duration:1))}
               thumbTintColor        = "white"
               minimumTrackTintColor = "red"
               maximumTrackTintColor = "#F6F1F0"
@@ -227,36 +227,36 @@ headerBackImage: <Image style={{    height:20,
             <Text style={styles.buttonText}>Auto Pause</Text>
             </TouchableOpacity>
         </View>
-        <View style={styles.controls}> 
-            
+        <View style={styles.controls}>
+
             <TouchableOpacity>
             <Image style={{width: 50, height: 50,marginLeft:23,marginTop:40}}
                 source={require('./icon/previous15.png')}
             />
-            </TouchableOpacity> 
-            
-            <TouchableOpacity >        
+            </TouchableOpacity>
+
+            <TouchableOpacity >
             <Image style={{width: 65, height: 65,marginTop:32}}
                 source={require('./icon/previous.png')}
             />
             </TouchableOpacity>
-            
+
             <TouchableOpacity onPress={ () => {
                                               this.togglePlayback();this.setState({ middlebutton: !this.state.middlebutton });
                                                }}>
             {this.renderImage()}
             </TouchableOpacity>
-            
-            <TouchableOpacity>        
+
+            <TouchableOpacity>
             <Image style={{width: 65, height: 65,marginTop:32}}
                 source={require('./icon/next.png')}
             />
-            </TouchableOpacity > 
+            </TouchableOpacity >
             <TouchableOpacity >
             <Image style={{width: 50, height: 50,marginTop:40}}
                 source={require('./icon/next15.png')}
             />
-              </TouchableOpacity> 
+              </TouchableOpacity>
       </View>
 
     </View>
@@ -267,9 +267,9 @@ headerBackImage: <Image style={{    height:20,
 const customStyles7 = StyleSheet.create({
   track: {
     height: 8,
-    
+
   },
-  
+
   thumb: {
     width: 65,
     height: 65,
@@ -314,9 +314,9 @@ const styles = StyleSheet.create({
         height: 50,
         width: 130,
         backgroundColor: "rgb(164,0,0)",
-                                    
+                           
         justifyContent: "center",
-        
+
         marginLeft:50,marginRight:0, marginTop:10,
         paddingTop:15,
         paddingBottom:15,
