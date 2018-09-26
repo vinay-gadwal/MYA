@@ -100,7 +100,7 @@ headerBackImage: <Image style={{    height:20,
 
     }
 
-    skipToNext = async () =>
+   async skipToNext()
     {
             try {
               await TrackPlayer.skipToNext()
@@ -109,7 +109,7 @@ headerBackImage: <Image style={{    height:20,
             }
     }
 
-    skipToPrevious = async () =>
+    async skipToPrevious()
     {
               try {
                 await TrackPlayer.skipToPrevious()
@@ -166,29 +166,15 @@ headerBackImage: <Image style={{    height:20,
           TrackPlayer.play();
           }
     }
-    Duration15Forward(seconds)
-    {
-      var rem = (this.state.position) + 15;
-      if(this.state.test == true){
-      if(seconds > 15){
-        this.state.position = rem     
-        return this.state.position;
+    async seekMusic(cValue){
+      try {
+        await TrackPlayer.seekTo(cValue);
+      } catch (_) {
+        TrackPlayer.reset();
       }
     }
-    }
-    Duration15Back(seconds)
-    {
-      var rem = (this.state.position) - 15;
-      if(this.state.State == true){
-      if(seconds > 30){
-        this.state.position = rem     
-        return this.state.position;
-      }
-    }
-    }
-    
    
-
+    
   render() {
     TrackPlayer.getDuration().then((dur)=>{this.setState({duration: dur})});
       return (
@@ -247,13 +233,13 @@ headerBackImage: <Image style={{    height:20,
         </View>
         <View style={styles.controls}>
 
-            <TouchableOpacity onPress={this.Duration15Back(this.state.duration)}>
+            <TouchableOpacity onPress={()=>{this.seekMusic(this.state.position-15);}}>
             <Image style={{width: 50, height: 50,marginLeft:23,marginTop:40}}
                 source={require('./icon/previous15.png')}
             />
             </TouchableOpacity>
 
-            <TouchableOpacity >
+            <TouchableOpacity onPress={()=>{this.skipToPrevious(this.state.position+15);}}>
             <Image style={{width: 65, height: 65,marginTop:32}}
                 source={require('./icon/previous.png')}
             />
@@ -265,12 +251,12 @@ headerBackImage: <Image style={{    height:20,
             {this.renderImage()}
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{this.skipToNext(this.state.position+15);}}>
             <Image style={{width: 65, height: 65,marginTop:32}}
                 source={require('./icon/next.png')}
             />
             </TouchableOpacity >
-            <TouchableOpacity onPress={() => {this.Duration15Forward(this.state.duration);this.setState({ test: !this.state.test })}}>
+            <TouchableOpacity onPress={()=>{this.seekMusic(this.state.position+15);}}>
            
             <Image style={{width: 50, height: 50,marginTop:40}}
                 source={require('./icon/next15.png')}

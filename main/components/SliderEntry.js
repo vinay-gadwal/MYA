@@ -50,7 +50,6 @@ export default class SliderEntry extends Component {
                 { title.toUpperCase() }
             </Text>
         ) : false;
-
         return (
             <TouchableOpacity
               activeOpacity={1}

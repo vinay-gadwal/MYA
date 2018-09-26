@@ -24,8 +24,8 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "ebabu_4",
-      password: "ebabu123",
+      username: "",
+      password: "",
       loading: false
     };
     realm = new Realm({
@@ -139,7 +139,7 @@ export default class Login extends Component {
             placeholderTextColor="black"
             returnKeyType="next"
             ref={input => (this.emailInput = input)}
-            onSubmitEditing={() => this.passwordCInput.focus()}
+            // onSubmitEditing={() => this.passwordCInput.focus()}
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
@@ -154,7 +154,7 @@ export default class Login extends Component {
             secureTextEntry={true}
             placeholderTextColor="black"
             ref={input => (this.passwordCInput = input)}
-            onSubmitEditing={() => this.passwordInput.focus()}
+            // onSubmitEditing={() => this.passwordInput.focus()}
             returnKeyType="next"
             secureTextEntry
           />

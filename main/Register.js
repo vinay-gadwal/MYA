@@ -19,11 +19,11 @@ export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "ebabu_19",
-  firstName: "ebabu",
-  lastName: "eb",
-  email: "ebabu@eb.in",
-  password: "ebabu123",
+      userName: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
   loading:false
     };
   }
@@ -103,7 +103,7 @@ export default class Register extends React.Component {
           <Image style={styles.logo} source={require("./banana.png")} />
           <Text style={styles.subtext}>Sign Up:</Text>
         </View> */}
-        <KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior='padding' >
           <Text style={styles.margin}>User Name</Text>
           <TextInput
             value={this.state.userName}
@@ -113,7 +113,7 @@ export default class Register extends React.Component {
             placeholderTextColor="black"
             autoCapitalize="none"
             returnKeyType="next"
-            onSubmitEditing={() => this.emailInput.focus()}
+            // onSubmitEditing={() => this.emailInput.focus()}
           />
           <Text style={styles.margin}>First Name</Text>
           <TextInput
@@ -152,7 +152,7 @@ export default class Register extends React.Component {
             autoCapitalize="none"
             placeholderTextColor="black"
             returnKeyType="next"
-            onSubmitEditing={() => this.emailInput.focus()}
+            // onSubmitEditing={() => this.emailInput.focus()}
           />
           <Text style={styles.margin}>Password</Text>
           <TextInput

@@ -8,14 +8,14 @@ import {
   Button,Image,
   Navigator,TouchableOpacity
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator,DrawerNavigator } from 'react-navigation';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { ENTRIES1 } from './static/entries';
 import { ENTRIES2 } from './static/grid';
 import SliderEntry from './components/SliderEntry';
 import MyFlatList from './components/flatList/FlatList';
-import Drawer from './DrawerNavigation'
-
+import Scroll from './Click_On_Album'
+import Album from './Album'
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 const IS_ANDROID = Platform.OS === 'android';
 const slideWidth = Math.round(0.75*viewportWidth);
@@ -38,14 +38,26 @@ export default class HomeScreen extends Component {
     
     }
 
-  GetClickedItem (student_name) {
- 
-    Alert.alert(student_name);
-     
-    }
+    Drawer = DrawerNavigator(
+      {
+        Scroll: { screen: Scroll },
+        Album: { screen: Album},
+      },
+      {
+        navigationOptions: {
+          gesturesEnabled: false
+        },
+      initialRouteName: "Scroll",
+        contentOptions: {
+          activeTintColor: "black"
+        },
+        drawerPosition: 'right',
+        // contentComponent: props => <SideBar {...props} />
+      }
+    );
+    
     static navigationOptions = {
       
-     
       headerLeft: null,
       headerTitle:null,
       headerStyle: {

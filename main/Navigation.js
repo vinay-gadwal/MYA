@@ -55,9 +55,10 @@ export default MainProject = StackNavigator(
           headerStyle: {
             headerMode: 'float',
             headerTransitionPreset: 'fade-in-place',
+            backgroundColor:'black'
           },
           headerTitle: (
-            <Image source={require('./icon/LauncherIcon.png')}/>
+            <Image style={{height:50,width:60,marginBottom:17}} source={require('./icon/logo-icon.png')}/>
         ),
           
 

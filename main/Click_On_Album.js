@@ -175,7 +175,7 @@ SetRemoveClass(){
 }
 
 renderView(){
-  if(this.state.VIEW == false){
+  if(this.state.VIEW ){
     return(
       <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
       <ScrollView>
@@ -245,8 +245,7 @@ renderView(){
     )
 
   }
-  else if(this.state.VIEW == true){
-    debugger
+  else if(!this.state.VIEW){
     return(
       <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
       <ScrollView>
@@ -352,8 +351,10 @@ renderView(){
             <TouchableOpacity onPress={ () => {
                                              this.setState({ VIEW: !this.state.VIEW });
                                                }}>
+                                               <View>
          
              {this.renderView()}
+             </View>
              </TouchableOpacity>
            
               <Slider 
