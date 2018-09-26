@@ -31,15 +31,23 @@ export default class HomeScreen extends Component {
   constructor (props) {
         super(props);
         this.state = {
-            slider1ActiveSlide: SLIDER_1_FIRST_ITEM
+            slider1ActiveSlide: SLIDER_1_FIRST_ITEM ,
         };
+       
+
+    
+    }
+
+  GetClickedItem (student_name) {
+ 
+    Alert.alert(student_name);
+     
     }
     static navigationOptions = {
       
-        Drawer:{
-          screen: Drawer
-        },
+     
       headerLeft: null,
+      headerTitle:null,
       headerStyle: {
         backgroundColor: "white",
       } ,

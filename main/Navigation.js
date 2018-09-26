@@ -12,6 +12,7 @@ import Home from './Home'
 import MyFlatList from './components/flatList/FlatList'
 import StartClass from './Start_Class'
 import Drawer from './DrawerNavigation'
+import Slider from './components/SliderEntry'
 class LoginActivity extends Component {
 
 constructor(props) {
@@ -45,17 +46,20 @@ export default MainProject = StackNavigator(
    Sixth:{screen: Album} ,
    Music :{screen :Music},
    Home : {screen: Home},
-   StartClass:{screen : StartClass}
+   StartClass:{screen : StartClass},
+   Slider : {screen:Slider}
 },{
     initialRouteName: 'App',
     headerMode: 'float',
     navigationOptions: {
           headerStyle: {
             headerMode: 'float',
-            backgroundColor:'black',
             headerTransitionPreset: 'fade-in-place',
-     
           },
+          headerTitle: (
+            <Image source={require('./icon/LauncherIcon.png')}/>
+        ),
+          
 
 
         },

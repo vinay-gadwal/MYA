@@ -34,7 +34,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                     currentPosition: 0,
                     selectedTrack: 0,
                     repeatOn: false,
-                    shuffleOn: false,
+                    shuffleOn: false,State:false,test:false
               };
 
               TrackPlayer.setupPlayer().then(() => {
@@ -91,7 +91,8 @@ headerBackImage: <Image style={{    height:20,
           marginLeft:30,
           marginRight:10
         }} source={require('./icon/BackWhite.png')}
-   />
+   />,
+   headerTitle:null 
   }
 
   skipForward(){
@@ -165,12 +166,28 @@ headerBackImage: <Image style={{    height:20,
           TrackPlayer.play();
           }
     }
-    onBack() {
-      if (this.state.duration > 0) {
-
-        this.setState({ duration: this.state.duration + 15 });
+    Duration15Forward(seconds)
+    {
+      var rem = (this.state.position) + 15;
+      if(this.state.test == true){
+      if(seconds > 15){
+        this.state.position = rem     
+        return this.state.position;
       }
     }
+    }
+    Duration15Back(seconds)
+    {
+      var rem = (this.state.position) - 15;
+      if(this.state.State == true){
+      if(seconds > 30){
+        this.state.position = rem     
+        return this.state.position;
+      }
+    }
+    }
+    
+   
 
   render() {
     TrackPlayer.getDuration().then((dur)=>{this.setState({duration: dur})});
@@ -188,7 +205,7 @@ headerBackImage: <Image style={{    height:20,
                style={{marginLeft:35,marginRight:35}}
                thumbStyle={customStyles7.thumb}
                 trackStyle={customStyles7.track}
-              minimumValue          = {0}
+              minimumValue          = {this.state.position}
               maximumValue          = {Math.floor(parseInt(this.state.duration?this.state.duration:1))}
               thumbTintColor        = "white"
               minimumTrackTintColor = "red"
@@ -230,7 +247,7 @@ headerBackImage: <Image style={{    height:20,
         </View>
         <View style={styles.controls}>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.Duration15Back(this.state.duration)}>
             <Image style={{width: 50, height: 50,marginLeft:23,marginTop:40}}
                 source={require('./icon/previous15.png')}
             />
@@ -253,7 +270,8 @@ headerBackImage: <Image style={{    height:20,
                 source={require('./icon/next.png')}
             />
             </TouchableOpacity >
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => {this.Duration15Forward(this.state.duration);this.setState({ test: !this.state.test })}}>
+           
             <Image style={{width: 50, height: 50,marginTop:40}}
                 source={require('./icon/next15.png')}
             />

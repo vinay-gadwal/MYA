@@ -12,7 +12,9 @@ import ForgetPassword from './ForgetPassword';
 import { createStackNavigator } from "react-navigation";
 import SplashScreen from 'react-native-splash-screen';
 const api = require('./API');
-
+var Realm = require('realm');
+ 
+let realm ;
 const RootStack = createStackNavigator({
   ForgetPassword: {
       screen: ForgetPassword
@@ -26,6 +28,33 @@ export default class Login extends Component {
       password: "ebabu123",
       loading: false
     };
+    realm = new Realm({
+      schema: [{name: 'User', 
+      properties: 
+      {
+        user_id: {type: 'int',   default: 0},
+        username: 'string', 
+      
+      }}]
+    });
+  }
+
+  add_Student(){
+ 
+ 
+    realm.write(() => {
+ 
+      var ID = realm.objects('User').length + 1;
+ 
+       realm.create('User', {
+         user_id: ID, 
+         username: this.state.username, 
+         
+        });
+        
+    });
+ 
+ 
   }
   componentDidMount() {
     SplashScreen.hide()
@@ -137,25 +166,11 @@ export default class Login extends Component {
         <TouchableOpacity 
         // onPress={this.FunctionToOpenSixthActivity}
               style={styles.button}
-              onPress={() => this.handleClick()}
+              onPress={() => {this.handleClick(); this.add_Student()}}
               >
         <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
-        <Text style={{color:'white',marginTop:25}}>OR</Text>
-        <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row',marginTop:30}}>
-               <TouchableOpacity >
-                <Image
-                      style={styles.Custom}
-                          source={require('./icon/fb.png')}
-                      />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                 <Image
-                style={styles.Custom}
-                    source={require('./icon/google.png')}
-                />
-                </TouchableOpacity>
-        </View>
+       
         <View style={{flexDirection:"row",marginTop:10}}>
         <Text style={{color:"grey",fontSize:12}}>Not Registered? Please </Text>
 

@@ -14,7 +14,7 @@ import {
 console.disableYellowBox = true;
 const pause = require('./icon/greyplay.png');
 const play = require('./icon/greypause.png');
- 
+ const greenplay = require('./icon/greenplay.png')
 
 
 class ProgressBar extends TrackPlayer.ProgressComponent {
@@ -41,13 +41,19 @@ function ControlButton({ title, onPress }) {
 export default class Scroll extends TrackPlayer.ProgressComponent {
   constructor(props){
     super(props);
-    this.state = { middlebutton:false,duration: 0,value:0.2, paused: true,
-                    totalLength: 1,
+    this.state = { middlebutton:false,duration: 0,value:0.2, paused: true,status:false,
+                    totalLength: 1,VIEW:false,
                     currentPosition: 0,
                     selectedTrack: 0,
-                    repeatOn: false,
+                    repeatOn: false,ClassSong:true,
                     shuffleOn: false,text: '', SwitchOnValueHolder :  false,SwitchOnValueHolder1:false
-              };
+              
+                  };
+                  setInterval(() => {
+                    this.setState(previousState => {
+                      return { isShowingText: !previousState.isShowingText };
+                    });
+                  },);
     
               TrackPlayer.setupPlayer().then(() => {
                 var track = [{
@@ -113,6 +119,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                 marginLeft:15,
                 marginRight:10}} source={require('./icon/back.png')}
           />,
+          headerTitle:null 
           
   }
   
@@ -142,6 +149,175 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
         }
   }
 
+  renderAlbum(){
+    var imgSource = this.state.status? greenplay : null;
+    return (
+      <View>
+      <Image 
+                 style={styles.ButtonStyle}
+                    source={ imgSource }
+                  />
+      </View>
+    );
+}
+SetRemoveClass(){
+  if(this.state.ClassSong == false){
+    return(
+    <Text>Set As Class Song</Text>
+    )
+  }
+  else{
+    return(
+      <Text>Remove From Class Song</Text>
+    )
+  }
+
+}
+
+renderView(){
+  if(this.state.VIEW == false){
+    return(
+      <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
+      <ScrollView>
+        <TouchableOpacity  onPress={ () => {
+                                       this.setState({ status: !this.state.status });
+                                                }}>
+      <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1,marginTop:1}}>
+                <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                <Text>Still The One</Text>
+                <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+              </View>
+             
+              {this.renderAlbum()}
+             
+                <TouchableOpacity>
+                <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                </TouchableOpacity>
+              
+                <View style={{backgroundColor:'transparent'}}>
+                  <MenuProvider>
+                  <Menu style={{backgroundColor:'transparent'}}>
+                    <MenuTrigger style={{backgroundColor:'transparent'}}>
+                    <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                    </MenuTrigger>
+                    <MenuOptions style={{right:110,backgroundColor:'transparent',marginTop:80}}>
+                    
+                    <View style={{flexDirection: 'row'}}>
+                    <MenuOption style={{fontSize:25}} value={1} text='Auto Play      ' />                         
+                    <Switch                      
+                    onValueChange={(value) => this.ShowAlert(value)}
+                    style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                    value={this.state.SwitchOnValueHolder}
+                    tintColor="red"
+                    thumbTintColor={this.state.value ? "grey" : "grey"}
+                    onTintColor="green"
+                    style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} />
+                    
+                    </View>
+                   
+                    <View style={{flexDirection: 'row'}}>
+                    <MenuOption style={{fontSize:25,}} value={1} text='Auto Delay   ' />                         
+                    <Switch                      
+                    onValueChange={(value) => this.Drop_Do(value)}
+                    style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                    value={this.state.SwitchOnValueHolder1}
+                    tintColor="red"
+                    thumbTintColor={this.state.value ? "grey" : "grey"}
+                    onTintColor="green"
+                    style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }],marginLeft:1 }} />                         
+                    </View>
+                    <TouchableOpacity  onPress={ () => {
+                                       this.setState({ ClassSong: !this.state.ClassSong });
+                                                }}>
+                    <MenuOption>
+                    {this.SetRemoveClass()}
+                     </MenuOption>
+                   </TouchableOpacity>
+                   </MenuOptions>
+                 </Menu>
+               </MenuProvider>
+              </View>
+        </View>
+        </TouchableOpacity>
+        </ScrollView>
+      </View>
+    )
+
+  }
+  else if(this.state.VIEW == true){
+    debugger
+    return(
+      <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
+      <ScrollView>
+        <TouchableOpacity  onPress={ () => {
+                                       this.setState({ status: !this.state.status });
+                                                }}>
+      <View style={{flexDirection:'row',backgroundColor:'rgb(247,237,236)',marginBottom:1,marginTop:1}}>
+                <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                <Text>Still The One</Text>
+                <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+              </View>
+             
+              {this.renderAlbum()}
+             
+                <TouchableOpacity>
+                <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                </TouchableOpacity>
+              
+                <View style={{backgroundColor:'transparent'}}>
+                  <MenuProvider>
+                  <Menu style={{backgroundColor:'transparent'}}>
+                    <MenuTrigger style={{backgroundColor:'transparent'}}>
+                    <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                    </MenuTrigger>
+                    <MenuOptions style={{right:110,backgroundColor:'transparent',marginTop:80}}>
+                    
+                    <View style={{flexDirection: 'row'}}>
+                    <MenuOption style={{fontSize:25}} value={1} text='Auto Play      ' />                         
+                    <Switch                      
+                    onValueChange={(value) => this.ShowAlert(value)}
+                    style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                    value={this.state.SwitchOnValueHolder}
+                    tintColor="red"
+                    thumbTintColor={this.state.value ? "grey" : "grey"}
+                    onTintColor="green"
+                    style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} />
+                    
+                    </View>
+                   
+                    <View style={{flexDirection: 'row'}}>
+                    <MenuOption style={{fontSize:25,}} value={1} text='Auto Delay   ' />                         
+                    <Switch                      
+                    onValueChange={(value) => this.Drop_Do(value)}
+                    style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                    value={this.state.SwitchOnValueHolder1}
+                    tintColor="red"
+                    thumbTintColor={this.state.value ? "grey" : "grey"}
+                    onTintColor="green"
+                    style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }],marginLeft:1 }} />                         
+                    </View>
+                    <TouchableOpacity   onPress={ () => {
+                                       this.setState({ ClassSong: !this.state.ClassSong });
+                                                }}>
+                    <MenuOption>
+                      {this.SetRemoveClass()}
+                     </MenuOption>
+                   </TouchableOpacity>
+                   </MenuOptions>
+                 </Menu>
+               </MenuProvider>
+              </View>
+        </View>
+        </TouchableOpacity>
+        </ScrollView>
+      </View>
+    )
+
+  }
+}
+
   ShowAlert = (value) =>{
  
     this.setState({
@@ -150,19 +326,6 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
     }) 
   }
 
-  skipToNext = async () => {
-          try {
-            await TrackPlayer.skipToNext()
-          } catch (_) {
-            TrackPlayer.reset();
-          }
-    }
-  
-  skipToPrevious = async () => {
-          try {
-            await TrackPlayer.skipToPrevious()
-          } catch (_) {}
-    }
   
   FunctionToOpenSeventhActivity = () =>
     {
@@ -176,8 +339,8 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
         SwitchOnValueHolder1: value
       }) 
     }
+   
     
-  
   render() {
     
       return (
@@ -186,164 +349,12 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
               <Image style={{height:140,width:180,marginTop:20,marginBottom:10,marginLeft:20,marginRight:20}} source={require('./image/running.jpeg')}/>
               <Text style={{marginTop:80,marginBottom:20,marginLeft:20,marginRight:20}}>BODY WARMUP</Text>
             </View>
-           
-              
-            <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
-            <ScrollView>
-            <View style={{flexDirection:'row',backgroundColor:'rgb(247,237,236)',marginBottom:1,marginTop:1}}>
-                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                      <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
-                      <Text>Still The One</Text>
-                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
-                    </View>
-                      <TouchableOpacity >
-                      <Image style={styles.ButtonStyle} source={require('./icon/greenplay.png')} />              
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
-                      </TouchableOpacity>
-                     
-                      <View style={{backgroundColor:'transparent'}}>
-                        <MenuProvider>
-                        <Menu style={{backgroundColor:'transparent'}}>
-                          <MenuTrigger style={{backgroundColor:'transparent'}}>
-                          <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                          </MenuTrigger>
-                          <MenuOptions style={{right:110,backgroundColor:'transparent',marginTop:80}}>
-                          
-                          <View style={{flexDirection: 'row'}}>
-                          <MenuOption style={{fontSize:25}} value={1} text='Auto Play      ' />                         
-                          <Switch                      
-                          onValueChange={(value) => this.ShowAlert(value)}
-                          style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
-                          value={this.state.SwitchOnValueHolder}
-                          tintColor="red"
-                          thumbTintColor={this.state.value ? "grey" : "grey"}
-                          onTintColor="green"
-                          style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} />
-                          
-                          </View>
-                         
-                          <View style={{flexDirection: 'row'}}>
-                          <MenuOption style={{fontSize:25,}} value={1} text='Auto Delay   ' />                         
-                          <Switch                      
-                          onValueChange={(value) => this.ShowAlert(value)}
-                          style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
-                          value={this.state.SwitchOnValueHolder1}
-                          tintColor="red"
-                          thumbTintColor={this.state.value ? "grey" : "grey"}
-                          onTintColor="green"
-                          style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }],marginLeft:1 }} />
-                          
-                          </View>
-                         <MenuOption  text='Set As Class Song' />
-                         </MenuOptions>
-                       </Menu>
-                     </MenuProvider>
-                    </View>
-              </View>
-             {/* <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
-                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
-                      <Text>Still The One</Text>
-                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
-                    </View>
-                      <TouchableOpacity >
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-              </View>
-              <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
-                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
-                      <Text>Still The One</Text>
-                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
-                    </View>
-                      <TouchableOpacity >
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <View >
-                    <MenuProvider>
-                    <Menu onSelect={value => alert(`Selected number: ${value}`)}>
-                      <MenuTrigger >
-                      <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                      </MenuTrigger>
-                      <MenuOptions style={{right:80,backgroundColor:'white'}}>
-                        <MenuOption value={1} text='One' />
-                        <MenuOption value={2}>
-                          <Text style={{color: 'red'}}>Two</Text>
-                        </MenuOption>
-                        <MenuOption value={3} disabled={true} text='Three' />
-                      </MenuOptions>
-                    </Menu>
-                  </MenuProvider>
-                    </View>
-              </View>
-              <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1}}>
-                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
-                      <Text>Still The One</Text>
-                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
-                    </View>
-                      <TouchableOpacity >
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                    <View >
-                      <MenuProvider>
-                      <Menu onSelect={value => alert(`Selected number: ${value}`)}>
-                        <MenuTrigger >
-                        <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                        </MenuTrigger>
-                        <MenuOptions style={{right:80,backgroundColor:'white'}}>
-                          <MenuOption value={1} text='One' />
-                          <MenuOption value={2}>
-                            <Text style={{color: 'red'}}>Two</Text>
-                          </MenuOption>
-                          <MenuOption value={3} disabled={true} text='Three' />
-                        </MenuOptions>
-                      </Menu>
-                      </MenuProvider>
-                    </View>
-              </View>
-              <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:2}}>
-                      <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                    <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
-                      <Text>Still The One</Text>
-                      <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
-                    </View>
-                      <TouchableOpacity >
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                      <Image style={styles.ButtonStyle} source={require('./icon/cross.png')} />              
-                      </TouchableOpacity>
-                      <View >
-                      <MenuProvider>
-                      <Menu onSelect={value => alert(`Selected number: ${value}`)}>
-                        <MenuTrigger >
-                        <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
-                        </MenuTrigger>
-                        <MenuOptions style={{right:80,backgroundColor:'white'}}>
-                          <MenuOption value={1} text='One' />
-                          <MenuOption value={2}>
-                            <Text style={{color: 'red'}}>Two</Text>
-                          </MenuOption>
-                          <MenuOption value={3} disabled={true} text='Three' />
-                        </MenuOptions>
-                      </Menu>
-                      </MenuProvider>
-                    </View>
-              </View> */}
-              </ScrollView>
-            </View>
+            <TouchableOpacity onPress={ () => {
+                                             this.setState({ VIEW: !this.state.VIEW });
+                                               }}>
+         
+             {this.renderView()}
+             </TouchableOpacity>
            
               <Slider 
                 style={{ flexDirection: 'column',backgroundColor: 'white',height:15,marginBottom:5,marginTop:5}}
@@ -400,7 +411,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
             </View>
             <View style={{flexDirection:'row'}}>
 
-            <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
+            <TouchableOpacity 
               style={styles.button1}
               //onPress={this.onLoginPress.bind(this)}
             >

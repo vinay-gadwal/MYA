@@ -19,11 +19,11 @@ export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
+      userName: "ebabu_19",
+  firstName: "ebabu",
+  lastName: "eb",
+  email: "ebabu@eb.in",
+  password: "ebabu123",
   loading:false
     };
   }
@@ -74,14 +74,14 @@ export default class Register extends React.Component {
         this.setState({
              loading: false
          }, ()=>{
-           if (response && response.data && response.data.ticket) {
+           if (response.userName == this.state.userName ) {
              console.log(response);
               // AsyncStorage.setItem('user_ticket', response.data.ticket);
-                  Alert.alert("Registration successfull")               
+                  this.props.navigation.navigate('Home')            
            }else{
              this.setState({ spinner: false });
              setTimeout(() => {
-               Alert.alert("Problem In Registration");
+               Alert.alert("User Name Already Exist , Choose Another UserName");
              }, 100);       
            
                    }
@@ -163,7 +163,7 @@ export default class Register extends React.Component {
             placeholderTextColor="black"
             returnKeyType="go"
             ref={input => (this.passwordInput = input)}
-            // secureTextEntry
+             secureTextEntry
           />
         </KeyboardAvoidingView>
         <TouchableHighlight
