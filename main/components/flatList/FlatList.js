@@ -39,7 +39,7 @@ class MyFlatList extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.props.fl}
+        data={this.props.fl}
           renderItem={this.renderItem}
           keyExtractor={(item,index) => index.toString()}
           numColumns={2}

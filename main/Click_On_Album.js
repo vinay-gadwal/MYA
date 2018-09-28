@@ -21,8 +21,8 @@ class ProgressBar extends TrackPlayer.ProgressComponent {
   render() {
     return (
       <View style={styles.progress}>
-        <View style={{ flex: this.getProgress(), backgroundColor: 'red' }} />
-        <View style={{ flex: 1 - this.getProgress(), backgroundColor: 'red' }} />
+        {/* <View style={{ flex: this.getProgress(), backgroundColor: 'red' }} />
+        <View style={{ flex: 1 - this.getProgress(), backgroundColor: 'red' }} /> */}
       </View>
     );
   }
@@ -131,7 +131,7 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
                           style={{height:30,marginTop:15,
                             width:30,
                             marginTop:5,
-                            marginBottom:2,marginLeft:130}}
+                            marginBottom:5,marginLeft:100}}
                             source={ imgSource }
                           />
               </View>
@@ -154,7 +154,12 @@ export default class Scroll extends TrackPlayer.ProgressComponent {
     return (
       <View>
       <Image 
-                 style={styles.ButtonStyle}
+                 style={{height:28,
+                  width:20,
+                marginTop:20,
+                    paddingRight:30,
+                    paddingLeft:0,
+                    backgroundColor:'transparent',}}
                     source={ imgSource }
                   />
       </View>
@@ -177,14 +182,14 @@ SetRemoveClass(){
 renderView(){
   if(this.state.VIEW ){
     return(
-      <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
-      <ScrollView>
+      <View style={{flex:1}}>
+      <ScrollView >
         <TouchableOpacity  onPress={ () => {
                                        this.setState({ status: !this.state.status });
                                                 }}>
-      <View style={{flexDirection:'row',backgroundColor:'white',marginBottom:1,marginTop:1}}>
+      <View style={{flexDirection:'row',backgroundColor:'white',padding:15}}>
                 <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                <View style={{flexDirection:'column',paddingTop:20,paddingLeft:10}}>
                 <Text>Still The One</Text>
                 <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
               </View>
@@ -241,26 +246,26 @@ renderView(){
         </View>
         </TouchableOpacity>
         </ScrollView>
-      </View>
+       </View>
     )
 
   }
   else if(!this.state.VIEW){
     return(
-      <View style={{flexDirection:'row',backgroundColor:'#DEDBDB',height:275}}>
-      <ScrollView>
+       <View style={{flex:1}}>
+      <ScrollView style={{height:"40%"}}>
         <TouchableOpacity  onPress={ () => {
                                        this.setState({ status: !this.state.status });
                                                 }}>
-      <View style={{flexDirection:'row',backgroundColor:'rgb(247,237,236)',marginBottom:1,marginTop:1}}>
+      <View style={{flexDirection:'row',backgroundColor:'rgb(250,240,239)',padding:10}}>
                 <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
-                <View style={{flexDirection:'column',marginTop:40,marginRight:40,marginLeft:10}}>
+                <View style={{flexDirection:'column',paddingTop:25,paddingLeft:10}}>
                 <Text>Still The One</Text>
                 <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
               </View>
-             
+             <View >
               {this.renderAlbum()}
-             
+             </View>
                 <TouchableOpacity>
                 <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
                 </TouchableOpacity>
@@ -297,11 +302,11 @@ renderView(){
                     onTintColor="green"
                     style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }],marginLeft:1 }} />                         
                     </View>
-                    <TouchableOpacity   onPress={ () => {
+                    <TouchableOpacity  onPress={ () => {
                                        this.setState({ ClassSong: !this.state.ClassSong });
                                                 }}>
                     <MenuOption>
-                      {this.SetRemoveClass()}
+                    {this.SetRemoveClass()}
                      </MenuOption>
                    </TouchableOpacity>
                    </MenuOptions>
@@ -343,22 +348,81 @@ renderView(){
   render() {
     
       return (
-          <View style={{backgroundColor:"white"}}>
-            <View style={{flexDirection:'row',backgroundColor:"rgb(246,246,248)"}}>
-              <Image style={{height:140,width:180,marginTop:20,marginBottom:10,marginLeft:20,marginRight:20}} source={require('./image/running.jpeg')}/>
-              <Text style={{marginTop:80,marginBottom:20,marginLeft:20,marginRight:20}}>BODY WARMUP</Text>
+          <View style={{backgroundColor:"white",flex:1,paddingBottom:0}}>
+            <View style={{flexDirection:'row',backgroundColor:"rgb(246,246,248)",width:"100%",justifyContent:"flex-start"}}>
+              <Image style={{height:140,width:180,marginTop:20,marginBottom:10,marginLeft:20,marginRight:10}} source={require('./image/running.jpeg')}/>
+              <Text style={{paddingTop:80,paddingBottom:20,paddingLeft:10,paddingRight:20}}>BODY WARMUP</Text>
             </View>
-            <TouchableOpacity onPress={ () => {
-                                             this.setState({ VIEW: !this.state.VIEW });
-                                               }}>
-                                               <View>
-         
-             {this.renderView()}
+            <TouchableOpacity >
+            <View style={{backgroundColor:'#DEDBDB',height:180}}>
+            <ScrollView style={{height:"40%"}}>
+        <TouchableOpacity  onPress={ () => {
+                                       this.setState({ status: !this.state.status });
+                                                }}>
+      <View style={{flexDirection:'row',backgroundColor:'rgb(250,240,239)',padding:10}}>
+                <Image style={{height:80,width:80,marginTop:10,marginBottom:5,marginLeft:10,marginRight:10}} source={require('./image/running.jpeg')} />
+                <View style={{flexDirection:'column',paddingTop:25,paddingLeft:10}}>
+                <Text>Still The One</Text>
+                <Text style={{fontSize:10,marginTop:5}}>Track type-WARMUP</Text>
+              </View>
+             <View >
+              {this.renderAlbum()}
+             </View>
+                <TouchableOpacity>
+                <Image style={styles.ButtonStyle} source={require('./icon/download.png')} />              
+                </TouchableOpacity>
+              
+                <View style={{backgroundColor:'transparent'}}>
+                  <MenuProvider>
+                  <Menu style={{backgroundColor:'transparent'}}>
+                    <MenuTrigger style={{backgroundColor:'transparent'}}>
+                    <Image style={styles.ButtonStyle} source={require('./icon/more.png')}/>              
+                    </MenuTrigger>
+                    <MenuOptions style={{right:110,backgroundColor:'transparent',marginTop:80}}>
+                    
+                    <View style={{flexDirection: 'row'}}>
+                    <MenuOption style={{fontSize:25}} value={1} text='Auto Play      ' />                         
+                    <Switch                      
+                    onValueChange={(value) => this.ShowAlert(value)}
+                    style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                    value={this.state.SwitchOnValueHolder}
+                    tintColor="red"
+                    thumbTintColor={this.state.value ? "grey" : "grey"}
+                    onTintColor="green"
+                    style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }} />
+                    
+                    </View>
+                   
+                    <View style={{flexDirection: 'row'}}>
+                    <MenuOption style={{fontSize:25,}} value={1} text='Auto Delay   ' />                         
+                    <Switch                      
+                    onValueChange={(value) => this.Drop_Do(value)}
+                    style={{marginBottom: 10,tintColor:'red',ios_backgroundColor:'red',thumbTintColor:'black'}}
+                    value={this.state.SwitchOnValueHolder1}
+                    tintColor="red"
+                    thumbTintColor={this.state.value ? "grey" : "grey"}
+                    onTintColor="green"
+                    style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }],marginLeft:1 }} />                         
+                    </View>
+                    <TouchableOpacity  onPress={ () => {
+                                       this.setState({ ClassSong: !this.state.ClassSong });
+                                                }}>
+                    <MenuOption>
+                    {this.SetRemoveClass()}
+                     </MenuOption>
+                   </TouchableOpacity>
+                   </MenuOptions>
+                 </Menu>
+               </MenuProvider>
+              </View>
+        </View>
+        </TouchableOpacity>
+        </ScrollView>
              </View>
              </TouchableOpacity>
-           
+               <View style={{marginBottom:5,marginTop:5}}>
               <Slider 
-                style={{ flexDirection: 'column',backgroundColor: 'white',height:15,marginBottom:5,marginTop:5}}
+                style={{ flexDirection: 'column',backgroundColor: 'white',paddingTop:8,paddingBottom:5}}
                 thumbStyle={customStyles7.thumb}
                 trackStyle={customStyles7.track}
                 minimumValue          = {0}
@@ -381,27 +445,28 @@ renderView(){
                 }}
                 value={this.state.isSeeking ? this.seek : this.state.position}
               />   
+              </View>
             <View style={styles.controls}> 
               
             <TouchableOpacity onPress={this.FunctionToOpenSeventhActivity}>        
                 <Image 
                 //style={styles.ButtonStyle1}
-                style={{height:28,marginTop:15,
+                style={{height:28,paddingTop:15,
                   width:30,
-                  marginTop:5,
-                  marginLeft:30}}
+                  //marginTop:5,
+                  paddingLeft:10}}
                     source={require('./icon/uparrow.png')}
                 />
             </TouchableOpacity>
-              <Text style={{marginTop:5,marginLeft:35,fontSize:16,fontWeight:'bold'}}>Still The One</Text>
+              <Text style={{paddingTop:5,paddingBottom:13,fontSize:16,paddingLeft:30,fontWeight:'bold'}}>Still The One</Text>
             <TouchableOpacity onPress={ () => {
                                               this.togglePlayback();this.setState({ middlebutton: !this.state.middlebutton });
                                                }}>
             {this.renderImage()}
             </TouchableOpacity>               
             </View>
-            <View style={{flexDirection:'row',marginBottom:30,}}>
-            <View style={{flexDirection:'row'}}>
+            <View style={{flexDirection:'row',justifyContent:"flex-end"}}>
+            {/* <View style={{flexDirection:'row'}}> */}
             <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
               style={styles.button}
               //onPress={this.onLoginPress.bind(this)}
@@ -409,8 +474,8 @@ renderView(){
             <Image style={styles.clockButton} source={require('./icon/startclassclock.png')} />              
             <Text style={styles.buttonText}>Start Class</Text>
             </TouchableOpacity>
-            </View>
-            <View style={{flexDirection:'row'}}>
+            {/* </View> */}
+            {/* <View style={{flexDirection:'row'}}> */}
 
             <TouchableOpacity 
               style={styles.button1}
@@ -419,7 +484,7 @@ renderView(){
             <Image style={styles.clockButton} source={require('./icon/startclassclock.png')} />              
             <Text style={styles.buttonText}>Start Workout</Text>
             </TouchableOpacity>
-              </View>
+              {/* </View> */}
               </View>
             <View>
             </View>
@@ -446,49 +511,50 @@ const styles = StyleSheet.create({
             ButtonStyle:{
               height:28,
               width:27,
-              marginTop:40,
-              marginBottom:40,
-                marginRight:15,
-                backgroundColor:'transparent'
+              padding:15,
+            marginTop:20,
+                paddingRight:1,
+                backgroundColor:'transparent',
             }, 
             buttonText: {
-              fontSize: 20,
+              fontSize:16,
               alignSelf: "center",
               textAlign: "center",
               color: "white",
               fontWeight: "500",
-              marginBottom:10
+              paddingBottom:10,
+              paddingBottom:20
             },
             clockButton:{
-              height:30,
-              width:30,
-              marginLeft:8,
-              marginTop:10,
-              marginRight:10
+              height:25,
+              width:25,
+              paddingLeft:8,
+              paddingTop:20,
+              paddingRight:10
             },
             controls: {
-              flexDirection: 'row',backgroundColor:"white",marginTop:14,padding:0,marginBottom:10
+              flexDirection: 'row',backgroundColor:"white",padding:5
             },
             button: {
-              height: 80,
-              width: 190,
+              height: "100%",
+              width: "50%",
               backgroundColor: "rgb(164,0,0)",
               //alignSelf: "stretch",
               marginTop: 5,
               justifyContent: "center",
               paddingVertical: 10,
-              marginBottom: 10,
+           
               flexDirection:'row'
             },
             button1: {
-              height: 80,
-              width: 190,
+              height: "100%",
+              width: "50%",
               backgroundColor: "black",
               //alignSelf: "stretch",
               marginTop: 5,
               justifyContent: "center",
               paddingVertical: 10,
-              marginBottom: 10,
+             
               flexDirection:'row'
             },
           
@@ -496,7 +562,7 @@ const styles = StyleSheet.create({
               height:28,
               width:27,
               marginTop:20,
-              marginBottom:0,
+            
             
             },
             ButtonStyle2:{

@@ -11,10 +11,10 @@ import SignUp from './Register'
 const styles = StyleSheet.create({
   icon: {
     width: 55,
-    height: 10,
-    paddingTop:300,
-    paddingHorizontal:20,
-    marginTop:5
+    height:80,
+    //paddingTop:300,
+   // paddingHorizontal:20,
+    marginTop:45
   }
 })
 
@@ -48,9 +48,8 @@ const routes = {
 }
 
 const navigationOptions = {
-  
-  headerStyle: {
-    header :true,
+  headerMode: 'none',  headerStyle: {
+    header :null,
   } 
 }
 const routeConfig = {

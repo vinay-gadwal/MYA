@@ -1,47 +1,84 @@
-import React, {Component} from 'react';
-import {NavigationActions} from 'react-navigation';
-import PropTypes from 'prop-types';
-import {ScrollView, Text, View} from 'react-native';
-import { DrawerActions } from 'react-navigation';
+import React, { Component } from 'react';
+ 
+import { StyleSheet, Platform, View, Text, Image, TouchableOpacity, YellowBox } from 'react-native';
 
-class DrawerScreen extends Component {
-  navigateToScreen = (route) => () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: route
-    });
-    this.props.navigation.dispatch(navigateAction);
-    this.props.navigation.dispatch(DrawerActions.closeDrawer())
+import { DrawerNavigator } from 'react-navigation';
+
+import { StackNavigator } from 'react-navigation'
+import Home from './Home'
+
+class HamburgerIcon extends Component {
+
+  toggleDrawer=()=>{
+
+    console.log(this.props.navigationProps);
+    
+    this.props.navigationProps.toggleDrawer();
+
   }
-
-  render () {
+ 
+  render() {
+ 
     return (
-      <View>
-        <ScrollView>
-          <View>
-            <View style={styles.menuItem}>
-              <Text >
-                Home
-              </Text>
-            </View>
-            <View style={styles.menuItem}>
-              <Text >
-               About
-              </Text>
-            </View>
-            <View style={styles.menuItem}>
-              <Text >
-              Contact
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
+ 
+      <View style={{flexDirection: 'row'}}>
+ 
+        <TouchableOpacity onPress={this.toggleDrawer.bind(this)} >
+
+          <Image
+            source={{uri : 'https://reactnativecode.com/wp-content/uploads/2018/04/hamburger_icon.png'}}
+            style={{ width: 25, height: 25, marginLeft: 5}}
+          />
+
+        </TouchableOpacity>
+ 
       </View>
+    
     );
+  
+  
   }
 }
+ 
 
-DrawerScreen.propTypes = {
-  navigation: PropTypes.object
-};
+ 
+    const FirstActivity_StackNavigator = StackNavigator({
+      First: { 
+        screen: Home, 
+        navigationOptions: ({ navigation }) => ({
+          title: 'Home',
+          headerLeft : <HamburgerIcon navigationProps={ navigation }/>,
 
-export default DrawerScreen;
+          headerStyle: {
+            backgroundColor: 'white'
+          },
+          headerTintColor: '#fff',
+        })
+      },
+    });
+
+
+   
+    
+export default MyDrawerNavigator = DrawerNavigator({
+  MainStack: { 
+    screen: FirstActivity_StackNavigator
+  },
+
+ 
+},
+);
+
+    
+const styles = StyleSheet.create({
+    
+ MainContainer :{
+ 
+  flex:1,
+  paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
+  alignItems: 'center',
+  justifyContent: 'center',
+    
+  }
+
+});

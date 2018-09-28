@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import {
   AppRegistry,
@@ -12,19 +11,19 @@ import {
   AsyncStorage,Button,TouchableOpacity
 } from "react-native";
 const api = require('./API');
-
+import {KeyboardAwareScrollView, KeyboardAwareListView} from 'react-native-keyboard-aware-scrollview'
 import { StackNavigator } from "react-navigation";
 
 export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  loading:false
+             userName: "",
+             firstName: "",
+             lastName: "",
+             email: "",
+             password: "",
+             loading:false
     };
   }
 
@@ -42,10 +41,10 @@ export default class Register extends React.Component {
 
   
   handleClick(){
-    if(this.state.userName == "" )
+    if(this.state.userName == "" && this.state.firstName =="" && this.state.lastName==""&& this.state.password =="" && this.state.email== "" )
     {
       Alert.alert("Enter Data in All Field")
-      console.log("empty data")
+      // console.log("empty data")
     }
   else{
     this.setState({
@@ -103,7 +102,8 @@ export default class Register extends React.Component {
           <Image style={styles.logo} source={require("./banana.png")} />
           <Text style={styles.subtext}>Sign Up:</Text>
         </View> */}
-        <KeyboardAvoidingView behavior='padding' >
+        <KeyboardAwareScrollView keyboardDismissMode="interactive"
+                                 keyboardShouldPersistTaps={true} >
           <Text style={styles.margin}>User Name</Text>
           <TextInput
             value={this.state.userName}
@@ -148,8 +148,6 @@ export default class Register extends React.Component {
             onChangeText={email => this.setState({ email })}
             style={styles.input}
             placeholder="Email"
-            autoCorrect={false}
-            autoCapitalize="none"
             placeholderTextColor="black"
             returnKeyType="next"
             // onSubmitEditing={() => this.emailInput.focus()}
@@ -157,7 +155,8 @@ export default class Register extends React.Component {
           <Text style={styles.margin}>Password</Text>
           <TextInput
             value={this.state.password}
-            onChangeText={password_confirmation => this.setState({ password_confirmation })}
+            // onChangeText={password_confirmation => this.setState({ password_confirmation })}    
+            onChangeText={password => this.setState({ password })}
             style={styles.input}
             placeholder="Password"
             placeholderTextColor="black"
@@ -165,19 +164,20 @@ export default class Register extends React.Component {
             ref={input => (this.passwordInput = input)}
              secureTextEntry
           />
-        </KeyboardAvoidingView>
+       
         <TouchableHighlight
           style={styles.button}
           onPress={() => this.handleClick()}
         >
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableHighlight>
-        {/* <View style={{flexDirection:"row",marginTop:10}}>
+        <View style={{flexDirection:"row",marginTop:0,marginBottom:30}}>
         <Text style={{color:"grey",fontSize:12}}>Registered? Please </Text>
-        <TouchableOpacity  onPress={this.FunctionToOpenFourthActivity}>
+        
         <Text style={{color:"red",fontSize:12}}>Login</Text>
-        </TouchableOpacity>
-        </View> */}
+       
+        </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
@@ -216,10 +216,11 @@ const styles = StyleSheet.create({
     width: 250,
     backgroundColor: "rgb(164,0,0)",
     //alignSelf: "stretch",
-    marginTop: 15,
+    marginTop:2,
     justifyContent: "center",
-    paddingVertical: 10,
-    marginBottom: 15
+    marginBottom:30
+ 
+   
   },
   buttonText: {
     fontSize: 18,

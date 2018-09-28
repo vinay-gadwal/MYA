@@ -1,249 +1,249 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
  
-import { StyleSheet, Platform, View, Image, Text, TextInput, TouchableOpacity, Alert, YellowBox, ListView } from 'react-native';
+// import { StyleSheet, Platform, View, Image, Text, TextInput, TouchableOpacity, Alert, YellowBox, ListView } from 'react-native';
  
-var Realm = require('realm');
+// var Realm = require('realm');
  
-let realm ;
+// let realm ;
 
-import { StackNavigator } from 'react-navigation';
+// import { StackNavigator } from 'react-navigation';
  
-class MainActivity extends Component{
+// class MainActivity extends Component{
 
-  static navigationOptions =
-  {
-     title: 'MainActivity',
-  };
+//   static navigationOptions =
+//   {
+//      title: 'MainActivity',
+//   };
 
-  GoToSecondActivity = () =>
-  {
-     this.props.navigation.navigate('Second');
+//   GoToSecondActivity = () =>
+//   {
+//      this.props.navigation.navigate('Second');
      
-  }
+//   }
  
-  constructor(){
+//   constructor(){
  
-    super();
+//     super();
  
-    this.state = {
+//     this.state = {
  
-      Student_Name : '',
+//       Student_Name : '',
  
-      Student_Class : '',
+//       Student_Class : '',
  
-      Student_Subject : ''
+//       Student_Subject : ''
  
-  }
+//   }
  
-    realm = new Realm({
-      schema: [{name: 'Student_Info', 
-      properties: 
-      {
-        student_id: {type: 'int',   default: 0},
-        student_name: 'string', 
-        student_class: 'string',
-        student_subject: 'string'
-      }}]
-    });
+//     realm = new Realm({
+//       schema: [{name: 'Student_Info', 
+//       properties: 
+//       {
+//         student_id: {type: 'int',   default: 0},
+//         student_name: 'string', 
+//         student_class: 'string',
+//         student_subject: 'string'
+//       }}]
+//     });
  
-  }
+//   }
  
-  add_Student=()=>{
+//   add_Student=()=>{
  
  
-    realm.write(() => {
+//     realm.write(() => {
  
-      var ID = realm.objects('Student_Info').length + 1;
+//       var ID = realm.objects('Student_Info').length + 1;
  
-       realm.create('Student_Info', {
-         student_id: ID, 
-         student_name: this.state.Student_Name, 
-         student_class: this.state.Student_Class, 
-         student_subject : this.state.Student_Subject
-        });
+//        realm.create('Student_Info', {
+//          student_id: ID, 
+//          student_name: this.state.Student_Name, 
+//          student_class: this.state.Student_Class, 
+//          student_subject : this.state.Student_Subject
+//         });
         
-    });
+//     });
  
-    Alert.alert("Student Details Added Successfully.")
+//     Alert.alert("Student Details Added Successfully.")
  
-  }
+//   }
  
-  render() {
+//   render() {
       
-    return (
+//     return (
     
-        <View style={styles.MainContainer}>
+//         <View style={styles.MainContainer}>
           
-          <TextInput 
-                placeholder="Enter Student Name"
-                style = { styles.TextInputStyle } 
-                underlineColorAndroid = "transparent" 
-                onChangeText = { ( text ) => { this.setState({ Student_Name: text })} } 
-              />
+//           <TextInput 
+//                 placeholder="Enter Student Name"
+//                 style = { styles.TextInputStyle } 
+//                 underlineColorAndroid = "transparent" 
+//                 onChangeText = { ( text ) => { this.setState({ Student_Name: text })} } 
+//               />
  
-          <TextInput  
-                placeholder="Enter Student Class"
-                style = { styles.TextInputStyle } 
-                underlineColorAndroid = "transparent" 
-                onChangeText = { ( text ) => { this.setState({ Student_Class: text })} } 
-              />
+//           <TextInput  
+//                 placeholder="Enter Student Class"
+//                 style = { styles.TextInputStyle } 
+//                 underlineColorAndroid = "transparent" 
+//                 onChangeText = { ( text ) => { this.setState({ Student_Class: text })} } 
+//               />
  
-          <TextInput 
-                placeholder="Enter Student Subject"
-                style = { styles.TextInputStyle } 
-                underlineColorAndroid = "transparent" 
-                onChangeText = { ( text ) => { this.setState({ Student_Subject: text })} } 
-              />
+//           <TextInput 
+//                 placeholder="Enter Student Subject"
+//                 style = { styles.TextInputStyle } 
+//                 underlineColorAndroid = "transparent" 
+//                 onChangeText = { ( text ) => { this.setState({ Student_Subject: text })} } 
+//               />
  
  
-          <TouchableOpacity onPress={this.add_Student} activeOpacity={0.7} style={styles.button} >
+//           <TouchableOpacity onPress={this.add_Student} activeOpacity={0.7} style={styles.button} >
  
-            <Text style={styles.TextStyle}> CLICK HERE TO ADD STUDENT DETAILS </Text>
+//             <Text style={styles.TextStyle}> CLICK HERE TO ADD STUDENT DETAILS </Text>
  
-          </TouchableOpacity>
+//           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.GoToSecondActivity} activeOpacity={0.7} style={styles.button} >
+//           <TouchableOpacity onPress={this.GoToSecondActivity} activeOpacity={0.7} style={styles.button} >
  
-            <Text style={styles.TextStyle}> SHOW ALL ENTERED DATA INTO LISTVIEW </Text>
+//             <Text style={styles.TextStyle}> SHOW ALL ENTERED DATA INTO LISTVIEW </Text>
 
-          </TouchableOpacity>
+//           </TouchableOpacity>
              
-        </View>
+//         </View>
               
-    );
-  }
-}
+//     );
+//   }
+// }
 
-class ShowDataActivity extends Component
-{
-  static navigationOptions =
-  {
-     title: 'ShowDataActivity',
-  };
+// class ShowDataActivity extends Component
+// {
+//   static navigationOptions =
+//   {
+//      title: 'ShowDataActivity',
+//   };
 
-  constructor() {
+//   constructor() {
  
-    super();
+//     super();
   
-    YellowBox.ignoreWarnings([
-     'Warning: componentWillMount is deprecated',
-     'Warning: componentWillReceiveProps is deprecated',
-   ]);
+//     YellowBox.ignoreWarnings([
+//      'Warning: componentWillMount is deprecated',
+//      'Warning: componentWillReceiveProps is deprecated',
+//    ]);
 
-   var mydata = realm.objects('Student_Info');
+//    var mydata = realm.objects('Student_Info');
 
-   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+//    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-    this.state = {
-      dataSource: ds.cloneWithRows(mydata),
-    };
+//     this.state = {
+//       dataSource: ds.cloneWithRows(mydata),
+//     };
   
-  }
+//   }
 
-  GetClickedItem (student_name) {
+//   GetClickedItem (student_name) {
  
-    Alert.alert(student_name);
+//     Alert.alert(student_name);
      
-    }
+//     }
  
-  ListViewItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: .5,
-          width: "100%",
-          backgroundColor: "#000",
-        }}
-      />
-    );
-  }
+//   ListViewItemSeparator = () => {
+//     return (
+//       <View
+//         style={{
+//           height: .5,
+//           width: "100%",
+//           backgroundColor: "#000",
+//         }}
+//       />
+//     );
+//   }
 
-  render()
-  {
+//   render()
+//   {
 
-     return(
-        <View style = { styles.MainContainer }>
+//      return(
+//         <View style = { styles.MainContainer }>
  
-            <ListView
+//             <ListView
             
-            dataSource={this.state.dataSource}
+//             dataSource={this.state.dataSource}
 
-            renderSeparator= {this.ListViewItemSeparator}
+//             renderSeparator= {this.ListViewItemSeparator}
 
-            renderRow={(rowData) => <View style={{flex:1, flexDirection: 'column'}} >
+//             renderRow={(rowData) => <View style={{flex:1, flexDirection: 'column'}} >
  
-                      <TouchableOpacity onPress={this.GetClickedItem.bind(this, rowData.student_name)} >
+//                       <TouchableOpacity onPress={this.GetClickedItem.bind(this, rowData.student_name)} >
                     
-                      <Text style={styles.textViewContainer} >{'id = ' + rowData.student_id}</Text>
+//                       <Text style={styles.textViewContainer} >{'id = ' + rowData.student_id}</Text>
               
-                      <Text style={styles.textViewContainer} >{'Name = ' + rowData.student_name}</Text>
+//                       <Text style={styles.textViewContainer} >{'Name = ' + rowData.student_name}</Text>
               
-                      <Text style={styles.textViewContainer} >{'Class = ' + rowData.student_class}</Text>
+//                       <Text style={styles.textViewContainer} >{'Class = ' + rowData.student_class}</Text>
               
-                      <Text style={styles.textViewContainer} >{'Subject = ' + rowData.student_subject}</Text>
+//                       <Text style={styles.textViewContainer} >{'Subject = ' + rowData.student_subject}</Text>
               
-                      </TouchableOpacity>
+//                       </TouchableOpacity>
               
-                    </View> }
+//                     </View> }
 
-            />
+//             />
  
-        </View>
-     );
-  }
-}
+//         </View>
+//      );
+//   }
+// }
 
-export default Project = StackNavigator(
-  {
-   First: { screen: MainActivity },
+// export default Project = StackNavigator(
+//   {
+//    First: { screen: MainActivity },
    
-   Second: { screen: ShowDataActivity }
-  });
+//    Second: { screen: ShowDataActivity }
+//   });
     
-const styles = StyleSheet.create({
+// const styles = StyleSheet.create({
     
- MainContainer :{
+//  MainContainer :{
  
-  flex:1,
-  justifyContent: 'center',
-  paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
-  margin: 10
+//   flex:1,
+//   justifyContent: 'center',
+//   paddingTop: (Platform.OS) === 'ios' ? 20 : 0,
+//   margin: 10
     
-  },
+//   },
  
-  TextInputStyle:
-    {
-      borderWidth: 1,
-      borderColor: '#009688',
-      width: '100%',
-      height: 40,
-      borderRadius: 10,
-      marginBottom: 10,
-      textAlign: 'center',
-    },
+//   TextInputStyle:
+//     {
+//       borderWidth: 1,
+//       borderColor: '#009688',
+//       width: '100%',
+//       height: 40,
+//       borderRadius: 10,
+//       marginBottom: 10,
+//       textAlign: 'center',
+//     },
  
-  button: {
+//   button: {
     
-      width: '100%',
-      height: 40,
-      padding: 10,
-      backgroundColor: '#4CAF50',
-      borderRadius:7,
-      marginTop: 12
-    },
+//       width: '100%',
+//       height: 40,
+//       padding: 10,
+//       backgroundColor: '#4CAF50',
+//       borderRadius:7,
+//       marginTop: 12
+//     },
      
-  TextStyle:{
-      color:'#fff',
-      textAlign:'center',
-    },
+//   TextStyle:{
+//       color:'#fff',
+//       textAlign:'center',
+//     },
 
-    textViewContainer: {
+//     textViewContainer: {
  
-      textAlignVertical:'center', 
-      padding:10,
-      fontSize: 20,
-      color: '#000',
+//       textAlignVertical:'center', 
+//       padding:10,
+//       fontSize: 20,
+//       color: '#000',
       
-     }
+//      }
    
-  });
+//   });

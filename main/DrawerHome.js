@@ -2,16 +2,14 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  StyleSheet,
-  Button
+  StyleSheet
 } from 'react-native';
 
-class MainScreen extends Component {
+class DetailScreen extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Text>Main</Text>
-        <Button onPress={() => this.props.navigation.navigate("Detail")} title="Detail Page" />
+        <Text>Detail Screen</Text>
       </View>
     );
   }
@@ -25,4 +23,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MainScreen;
+export default DetailScreen;

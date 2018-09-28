@@ -33,28 +33,65 @@ export default class HomeScreen extends Component {
         this.state = {
             slider1ActiveSlide: SLIDER_1_FIRST_ITEM ,
         };
-       
-
-    
     }
+    //Function for Album Api
+  AlbumApi(){
+   
+    fetch(api.base_url + "/alfresco/s/api/dtree/getCRUDedObjects?timestamp=1537447935000", {
+ method: 'GET',
+ headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+  // body : 
+  body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+       })
+  })
+  .then((response) => response.json())
+  .then((response) => {
+           this.setState({
+                loading: false
+            }, ()=>{
+              if (response && response.data && response.data.ticket) {
+                console.log(response);
+                 AsyncStorage.setItem('user_ticket', response.data.ticket);
+                  this.props.navigation.navigate('Home');
+                  
+              }else{
+                this.setState({ spinner: false });
+                setTimeout(() => {
+                  Alert.alert("Please Enter Valid username And Password");
+                }, 100);       
+              
+                      }
+            }
+          );                         
+  })
+  .catch((error) => {
+    alert('There was an error OR Check Your Internet Connection');
+  }).done();
 
-    Drawer = DrawerNavigator(
-      {
-        Scroll: { screen: Scroll },
-        Album: { screen: Album},
-      },
-      {
-        navigationOptions: {
-          gesturesEnabled: false
-        },
-      initialRouteName: "Scroll",
-        contentOptions: {
-          activeTintColor: "black"
-        },
-        drawerPosition: 'right',
-        // contentComponent: props => <SideBar {...props} />
-      }
-    );
+}
+    
+    // Drawer = DrawerNavigator(
+    //   {
+    //     Scroll: { screen: Scroll },
+    //     Album: { screen: Album},
+    //   },
+    //   {
+    //     navigationOptions: {
+    //       gesturesEnabled: false
+    //     },
+    //   initialRouteName: "Scroll",
+    //     contentOptions: {
+    //       activeTintColor: "black"
+    //     },
+    //     drawerPosition: 'right',
+    //     // contentComponent: props => <SideBar {...props} />
+    //   }
+    // );
     
     static navigationOptions = {
       

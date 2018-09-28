@@ -8,13 +8,14 @@ import {
   KeyboardAvoidingView,
   AsyncStorage,TouchableOpacity,ImageBackground,Image,Alert
 } from "react-native";
+
 import ForgetPassword from './ForgetPassword';
 import { createStackNavigator } from "react-navigation";
 import SplashScreen from 'react-native-splash-screen';
 const api = require('./API');
-var Realm = require('realm');
+// var Realm = require('realm');
  
-let realm ;
+// let realm ;
 const RootStack = createStackNavigator({
   ForgetPassword: {
       screen: ForgetPassword
@@ -24,38 +25,38 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      username: "ebabu_4",
+      password: "ebabu123",
       loading: false
     };
-    realm = new Realm({
-      schema: [{name: 'User', 
-      properties: 
-      {
-        user_id: {type: 'int',   default: 0},
-        username: 'string', 
+    // realm = new Realm({
+    //   schema: [{name: 'User', 
+    //   properties: 
+    //   {
+    //     user_id: {type: 'int',   default: 0},
+    //     username: 'string', 
       
-      }}]
-    });
+    //   }}]
+    // });
   }
 
-  add_Student(){
+  // add_Student(){
  
  
-    realm.write(() => {
+  //   realm.write(() => {
  
-      var ID = realm.objects('User').length + 1;
+  //     var ID = realm.objects('User').length + 1;
  
-       realm.create('User', {
-         user_id: ID, 
-         username: this.state.username, 
+  //      realm.create('User', {
+  //        user_id: ID, 
+  //        username: this.state.username, 
          
-        });
+  //       });
         
-    });
+  //   });
  
  
-  }
+  // }
   componentDidMount() {
     SplashScreen.hide()
 }
@@ -78,6 +79,8 @@ export default class Login extends Component {
      this.props.navigation.navigate('Home');
 
   }
+  
+  
   handleClick(){
     if(this.state.username == "" || this.state.password == "")
     {
@@ -121,16 +124,16 @@ export default class Login extends Component {
               );                         
       })
       .catch((error) => {
-        alert('There was an error creating your account.');
+        alert('There was an error OR Check Your Internet Connection');
       }).done();
     }
 }
   render() {
     return (
-      <ImageBackground style={{height:610,width:380}} source={require('./image/spl2x.png')}>
+      // <ImageBackground style={{height:610,width:380}} source={require('./image/spl2x.png')}>
 
-      <View behavior="padding" style={styles.container}>
-        <KeyboardAvoidingView>
+      <View  style={styles.container}>
+        <KeyboardAvoidingView behavior="padding">
           <Text style={styles.margin}>User Name</Text>
           <TextInput
             value={this.state.username}
@@ -138,6 +141,7 @@ export default class Login extends Component {
             style={styles.input}
             placeholderTextColor="black"
             returnKeyType="next"
+            underlineColorAndroid='transparent'
             ref={input => (this.emailInput = input)}
             // onSubmitEditing={() => this.passwordCInput.focus()}
             keyboardType="email-address"
@@ -149,14 +153,13 @@ export default class Login extends Component {
           <TextInput
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="black"
             ref={input => (this.passwordCInput = input)}
             // onSubmitEditing={() => this.passwordInput.focus()}
-            returnKeyType="next"
-            secureTextEntry
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="black"
+            returnKeyType="go"
+             secureTextEntry
           />
         </KeyboardAvoidingView>
         <TouchableOpacity  onPress={this.FunctionToOpenSecondActivity}
@@ -164,9 +167,9 @@ export default class Login extends Component {
         <Text style={{color:"white",fontSize:12,marginBottom:5,marginTop:0}}>                                     FORGOT PASSWORD?</Text>
         </TouchableOpacity>
         <TouchableOpacity 
-        // onPress={this.FunctionToOpenSixthActivity}
               style={styles.button}
-              onPress={() => {this.handleClick(); this.add_Student()}}
+              // onPress={() => {this.handleClick(); this.add_Student()}}
+              onPress={() => {this.handleClick()}}
               >
         <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
@@ -177,19 +180,18 @@ export default class Login extends Component {
         <Text  style={{color:"red",fontSize:12}}>Signup</Text>
         </View>
       </View>
-      </ImageBackground>
+      // {/* </ImageBackground> */}
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.2,
+    flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "black",
     padding: 20,
-    paddingTop: 100
   },
   logoContainer: {
     alignItems: "center",
