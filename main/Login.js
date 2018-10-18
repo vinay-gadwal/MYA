@@ -81,53 +81,53 @@ export default class Login extends Component {
   }
   
   
-  handleClick(){
-    if(this.state.username == "" || this.state.password == "")
-    {
-      Alert.alert("Enter Valid Email And Password")
-    }
-  else{
-    this.setState({
-      loading: true
-    });
+//   handleClick(){
+//     if(this.state.username == "" || this.state.password == "")
+//     {
+//       Alert.alert("Enter Valid Email And Password")
+//     }
+//   else{
+//     this.setState({
+//       loading: true
+//     });
 
-    fetch(api.base_url + "/alfresco/service/api/login", {
-     method: 'POST',
-     headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                },
-      // body : 
-      body: JSON.stringify({
-            username: this.state.username,
-            password: this.state.password,
-           })
-      })
-      .then((response) => response.json())
-      .then((response) => {
-               this.setState({
-                    loading: false
-                }, ()=>{
-                  if (response && response.data && response.data.ticket) {
-                    console.log(response);
-                     AsyncStorage.setItem('user_ticket', response.data.ticket);
-                      this.props.navigation.navigate('Home');
+//     fetch(api.base_url + "/alfresco/service/api/login", {
+//      method: 'POST',
+//      headers: {
+//                   'Accept': 'application/json',
+//                   'Content-Type': 'application/json',
+//                 },
+//       // body : 
+//       body: JSON.stringify({
+//             username: this.state.username,
+//             password: this.state.password,
+//            })
+//       })
+//       .then((response) => response.json())
+//       .then((response) => {
+//                this.setState({
+//                     loading: false
+//                 }, ()=>{
+//                   if (response && response.data && response.data.ticket) {
+//                     console.log(response);
+//                      AsyncStorage.setItem('user_ticket', response.data.ticket);
+//                       this.props.navigation.navigate('Home');
                       
-                  }else{
-                    this.setState({ spinner: false });
-                    setTimeout(() => {
-                      Alert.alert("Please Enter Valid username And Password");
-                    }, 100);       
+//                   }else{
+//                     this.setState({ spinner: false });
+//                     setTimeout(() => {
+//                       Alert.alert("Please Enter Valid username And Password");
+//                     }, 100);       
                   
-                          }
-                }
-              );                         
-      })
-      .catch((error) => {
-        alert('There was an error OR Check Your Internet Connection');
-      }).done();
-    }
-}
+//                           }
+//                 }
+//               );                         
+//       })
+//       .catch((error) => {
+//         alert('There was an error OR Check Your Internet Connection');
+//       }).done();
+//     }
+// }
   render() {
     return (
       // <ImageBackground style={{height:610,width:380}} source={require('./image/spl2x.png')}>
@@ -169,7 +169,8 @@ export default class Login extends Component {
         <TouchableOpacity 
               style={styles.button}
               // onPress={() => {this.handleClick(); this.add_Student()}}
-              onPress={() => {this.handleClick()}}
+              // onPress={() => {this.handleClick()}}
+              onPressIn={this.FunctionToOpenSixthActivity()}
               >
         <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>

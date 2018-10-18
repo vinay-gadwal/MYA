@@ -182,13 +182,13 @@ headerBackImage: <Image style={{    height:20,
        <View style={styles.container}>
             <StatusBar hidden={true} />
             <Image
-                style={{width: 250, height: 250,marginLeft:60,marginRight:100,marginBottom:30}}
+                style={{width: "50%", height: "40%",marginLeft:"25%",marginBottom:"5%"}}
                 source={{uri: 'https://awllpaper.com/wp-content/uploads/2018/03/music-wallpaper-mobile-best-mobile-music-wallpapers-7.jpg'}}
             />
 
 
             <Slider
-               style={{marginLeft:35,marginRight:35}}
+               style={{marginLeft:"5%",marginRight:"5%"}}
                thumbStyle={customStyles7.thumb}
                 trackStyle={customStyles7.track}
               minimumValue          = {0}
@@ -219,7 +219,7 @@ headerBackImage: <Image style={{    height:20,
                 { this.state.isSeeking ? this.formatTime(this.seek) : this.formatTime(this.state.duration) }
               </Text >
         </View>
-        <View style={{justifyContent: 'space-between',alignItems: 'flex-end',flexDirection:'row',marginTop:30}}>
+        <View style={{justifyContent: 'space-between',alignItems: 'center',flexDirection:'row',marginTop:"%"}}>
            <TouchableOpacity onPress={this.FunctionToOpenSixthActivity}
               style={styles.button}
             >
@@ -288,7 +288,8 @@ const customStyles7 = StyleSheet.create({
 const styles = StyleSheet.create({
   backgroundImage: {
       flex: 1,
-      backgroundColor:"rgb(164,0,0)"
+      backgroundColor:"rgb(164,0,0)",
+      paddingTop:"20%"
       },
       container: {
         flex: 1,
@@ -304,7 +305,7 @@ const styles = StyleSheet.create({
         height: 1,width: '100%',marginTop: 5,flexDirection: 'row',
       },
       controls: {
-      flexDirection: 'row'
+      flexDirection: 'row',justifyContent:'center',marginLeft:"10%",marginRight:"17%"
       },
       controlButtonContainer: {
         flex: 1,
@@ -316,26 +317,22 @@ const styles = StyleSheet.create({
       backgroundColor:"black",alignItems: 'stretch',justifyContent: 'center',
       },
       button: {
-        height: 50,
-        width: 130,
+        height: "45%",
+        width: "40%",
         backgroundColor: "rgb(164,0,0)",
                            
         justifyContent: "center",
-
-        marginLeft:50,marginRight:0, marginTop:10,
-        paddingTop:15,
-        paddingBottom:15,
+        marginLeft:"7%",
+       
         borderRadius:40,
         borderWidth: 1,
       },
       button1: {
-        height: 50,
-        width: 130,
+        height: "45%",
+        width: "40%",
         backgroundColor: "rgb(155,155,155)",
         justifyContent: "center",
-         marginRight:50,marginLeft:0,
-        paddingTop:15,
-        paddingBottom:15,
+       marginRight:"7%",
         borderRadius:40,
         borderWidth: 1,
       },

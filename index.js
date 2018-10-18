@@ -1,5 +1,9 @@
-import { AppRegistry } from "react-native";
-import App from "./main/Navigation";
-import { name as appName } from "./app.json";  
-//import project from './main/DrawerNavigation'
-AppRegistry.registerComponent(appName, () => App);
+
+import { Platform, AppRegistry} from 'react-native';
+//import App from './realm';
+import {name as appName} from './app.json';
+import TrackPlayer from 'react-native-track-player';
+import App from './containers/Navigation';
+
+AppRegistry.registerComponent(Platform.OS === 'ios' ? appName :"MyIApp", () => App);
+TrackPlayer.registerEventHandler(require('./player-handler.js'));
